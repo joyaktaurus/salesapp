@@ -1,4 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:salesapp/my_theme.dart';
+import 'package:salesapp/utils/asset_helper.dart';
+
+import '../routes.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -6,20 +13,22 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
   @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-  //     await FetchDataFromLocalStore().userData();
-  //     App.token = App.user.token ?? '';
-  //     log("token>>${App.user.token}");
-  //     errM(() => checkAlreadyLogged());
-  //   });
-  // }
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 3),
+            ()=>Get.offNamed(Routes.login)
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = Get.mediaQuery;
+    // final screenWidth = mediaQueryData.size.width;
+    // final screenHeight = mediaQueryData.size.height;
     return Scaffold(
+      backgroundColor: Color.fromRGBO(0, 0, 128, 1),
       body: Stack(
         children: [
           Container(
@@ -32,20 +41,20 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // CircleAvatar(
-                //   radius: 100,
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       shape: BoxShape.circle,
-                //       boxShadow: [
-                //         BoxShadow(
-                //             blurRadius: 50, color: Colors.white)
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                Container(
+                    height: Get. height *.12,
+                    width: Get. width *.18,
+                    child: Image.asset(AssetHelper.splashIcon)),
+                SizedBox(height: Get. height * 0.002),
+                Text(
+                  "Sales executive app".toUpperCase(),
+                  style: MyTheme.regularTextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: Get.height*.033,
+                  ),
+                ),
               ],
             ),
           ),
@@ -53,17 +62,4 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-
-  // Future<void> checkAlreadyLogged() async {
-  //   Future.delayed(
-  //     const Duration(milliseconds: 1400),
-  //         () async {
-  //       if (App.token.isEmpty) {
-  //         Get.offNamed(Routes.login);
-  //       } else {
-  //         Get.offNamed(Routes.dashBoardPage);
-  //       }
-  //     },
-  //   );
-  // }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../../utils/my_utils.dart';
-import 'forgot_pass_controller.dart';
+import 'dashboard_controller.dart';
 
 
-class ForgotPassView extends GetView<ForgotViewController> {
-  const ForgotPassView({Key? key}) : super(key: key);
+class DashBoardView extends GetView<DashboardViewController> {
+  const DashBoardView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

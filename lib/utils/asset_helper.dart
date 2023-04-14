@@ -17,7 +17,7 @@ abstract class AssetHelper {
   // //---------------------------------------------
 
    static get splashImage => images("splash.png");
-   static get noticeBoard => images("Vector (2).png");
+   static get splashIcon => images("Vector.png");
    static get splashTwo => images("logolake.png");
    static get loginImage => images("components.png");
    static get lakeSmall => images("lakesmall.png");
