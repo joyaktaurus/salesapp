@@ -5,7 +5,7 @@ class MyTheme {
   static MaterialColor primaryColor1 = Colors.blue;
  // static Color primaryColor2 =  '#001833'.toColor();
   static Color whiteColor = const Color(0xFFFFFFFF);
-  static Color gradientColor2 = const Color(0XFFF7867D);
+  static Color myBlueDark = const Color.fromRGBO(0, 0, 128, 1);
   static Color gradientColor3 = const Color(0XFF8E4741);
 
   static TextStyle regularTextStyle(

@@ -3,8 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:salesapp/components/whitecard.dart';
+import 'package:salesapp/components/mycards.dart';
+import '../../components/app_buttons.dart';
 import '../../my_theme.dart';
+import '../../routes.dart';
 import '../../utils/my_utils.dart';
 import 'login_controller.dart';
 
@@ -18,7 +20,7 @@ class LoginView extends GetView<LoginViewController> {
           MyUtils.hideKeyboard();
         },
         child: Scaffold(
-            backgroundColor: Color.fromRGBO(0, 0, 128, 1),
+            backgroundColor: MyTheme.myBlueDark,
             body: Stack(children: [
               Center(
                 child: Column(
@@ -33,6 +35,9 @@ class LoginView extends GetView<LoginViewController> {
                         fontSize: Get.height * .043,
                       ),
                     ),
+                    SizedBox(
+                      height: Get.height * .024,
+                    ),
                     Text(
                       "Sign in to Continue",
                       style: MyTheme.regularTextStyle(
@@ -42,32 +47,76 @@ class LoginView extends GetView<LoginViewController> {
                   ],
                 ),
               ),
-              WhiteCard(
-                height: Get.height * .727,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: Get.height * .1),
-                      TextFormField(
-                        // controller: controller.userCtrl,
-                        // focusNode: controller.userCtrlfocusNode,
-                        decoration: textBoxDecoration('User Name'),
-                        textInputAction: TextInputAction.next,
-                      ),
-                      SizedBox(
-                          height: Get.height * .03),
-                      TextFormField(
-                        // controller: controller.userCtrl,
-                        // focusNode: controller.userCtrlfocusNode,
-                        decoration: textBoxDecoration('Password'),
-                        textInputAction: TextInputAction.next,
-                      ),
-                    ],
+              Padding(
+                padding: const EdgeInsets.only(top: 250),
+                child: MyCard(
+                  height: Get.height * .727,
+                  color: MyTheme.whiteColor,
+                  clipBehavior: 0,
+                  radius: 100,
+                  child: Padding(
+                    padding: EdgeInsets.all(Get.height * .027),
+                    child: Container(
+                      child: Stack(children: [
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SizedBox(height: Get.height * .1),
+                              TextFormField(
+                                // controller: controller.userCtrl,
+                                // focusNode: controller.userCtrlfocusNode,
+                                decoration: textBoxDecoration('User Name'),
+                                textInputAction: TextInputAction.next,
+                              ),
+                              SizedBox(height: Get.height * .04),
+                              TextFormField(
+                                // controller: controller.userCtrl,
+                                // focusNode: controller.userCtrlfocusNode,
+                                decoration: textBoxDecoration('Password'),
+                                textInputAction: TextInputAction.next,
+                              ),
+                              SizedBox(height: Get.height * .03),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(Routes.forgotPassPage);
+                                    },
+                                    child: Text(
+                                      "Forgot Password?",
+                                      style: MyTheme.regularTextStyle(
+                                          fontSize: Get.height * .018,
+                                          color: MyTheme.myBlueDark),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 200),
+                          child: Center(
+                            child: MAButton(
+                              text: 'Sign In',
+                              buttonPress: () {
+                                   Get.offNamed(Routes.dashBoardPage);
+                              },
+                              isEnabled: true,
+                              padding: const EdgeInsets.all(30),
+                              height: Get.height * 0.07,
+                              width: Get.width * 0.4,
+                              clipBehavior: 0,
+                              radius: 30,
+                            ),
+                          ),
+                        ),
+                      ]),
+                    ),
                   ),
                 ),
-              )
+              ),
             ])));
   }
 }

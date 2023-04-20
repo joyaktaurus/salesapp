@@ -22,7 +22,7 @@ void main() async {
         primarySwatch: MyTheme.primaryColor1,
       //  unselectedWidgetColor: Colors.blue,
       ),
-      initialRoute: Routes.login,
+      initialRoute: Routes.splash,
       getPages: Routes.routes,
     ),
   );
