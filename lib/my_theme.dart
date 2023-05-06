@@ -6,7 +6,7 @@ class MyTheme {
  // static Color primaryColor2 =  '#001833'.toColor();
   static Color whiteColor = const Color(0xFFFFFFFF);
   static Color myBlueDark = const Color.fromRGBO(0, 0, 128, 1);
-  static Color gradientColor3 = const Color(0XFF8E4741);
+  static Color dashBack = const Color(0x00FFFDFD);
 
   static TextStyle regularTextStyle(
       {Color? color,

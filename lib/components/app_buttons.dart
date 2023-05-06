@@ -11,6 +11,7 @@ class MAButton extends StatelessWidget {
   final EdgeInsets padding;
   final double clipBehavior;
   final double radius;
+  final double fontSize;
 
 
   const MAButton({
@@ -23,6 +24,7 @@ class MAButton extends StatelessWidget {
     required this.width,
     required this.clipBehavior,
     required this.radius,
+    required this.fontSize,
 
   }) : super(key: key);
   //var icon;
@@ -50,7 +52,7 @@ class MAButton extends StatelessWidget {
                 Text(
                   text,
                   style:
-                      MyTheme.regularTextStyle(color: Colors.white, fontSize: 20),
+                      MyTheme.regularTextStyle(color: Colors.white, fontSize: fontSize),
                 ),
               ],
             ),

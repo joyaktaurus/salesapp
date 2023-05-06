@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:salesapp/my_theme.dart';
 import 'package:salesapp/utils/asset_helper.dart';
-
 import '../routes.dart';
 
 class SplashScreen extends StatefulWidget {

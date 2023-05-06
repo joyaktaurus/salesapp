@@ -5,8 +5,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:salesapp/components/mycards.dart';
 import '../../components/app_buttons.dart';
+import '../../components/rounded_loader.dart';
 import '../../my_theme.dart';
 import '../../routes.dart';
+import '../../utils/err_m.dart';
 import '../../utils/my_utils.dart';
 import 'login_controller.dart';
 
@@ -63,15 +65,15 @@ class LoginView extends GetView<LoginViewController> {
                             children: [
                               SizedBox(height: Get.height * .1),
                               TextFormField(
-                                // controller: controller.userCtrl,
-                                // focusNode: controller.userCtrlfocusNode,
+                                controller: controller.userCtrl,
+                                focusNode: controller.userCtrlfocusNode,
                                 decoration: textBoxDecoration('User Name'),
                                 textInputAction: TextInputAction.next,
                               ),
                               SizedBox(height: Get.height * .04),
                               TextFormField(
-                                // controller: controller.userCtrl,
-                                // focusNode: controller.userCtrlfocusNode,
+                                controller: controller.pswdCtrl,
+                                focusNode: controller.pswdCtrlfocusNode,
                                 decoration: textBoxDecoration('Password'),
                                 textInputAction: TextInputAction.next,
                               ),
@@ -98,18 +100,23 @@ class LoginView extends GetView<LoginViewController> {
                         Padding(
                           padding: const EdgeInsets.only(top: 200),
                           child: Center(
-                            child: MAButton(
-                              text: 'Sign In',
-                              buttonPress: () {
-                                   Get.offNamed(Routes.dashBoardPage);
-                              },
-                              isEnabled: true,
-                              padding: const EdgeInsets.all(30),
-                              height: Get.height * 0.07,
-                              width: Get.width * 0.4,
-                              clipBehavior: 0,
-                              radius: 30,
-                            ),
+                            child: Obx(
+                                () => controller.isLoggingProgress.value == true
+                                    ? const RoundedLoader()
+                                    : MAButton(
+                                      text: 'Sign In',
+                                      buttonPress: () {
+                                        MyUtils.hideKeyboard();
+                                        errM(() => controller.doLogin());
+                                      },
+                                      isEnabled: true,
+                                      padding: const EdgeInsets.all(30),
+                                      height: Get.height * 0.07,
+                                      width: Get.width * 0.4,
+                                      clipBehavior: 0,
+                                      radius: 30,
+                                      fontSize: 20,
+                                    )),
                           ),
                         ),
                       ]),

@@ -21,12 +21,8 @@ abstract class AssetHelper {
    static get profileImage => images("propic.png");
    static get loginImage => images("components.png");
    static get mailCheck => images("mailcheck.png");
-   static get briefcase => images("Briefcase_.png");
-   static get calender => images("Alternate Calendar_.png");
-   static get email => images("Envelope_.png");
-   static get password => images("password.png");
-   static get document => images("New Document.png");
-   static get leaveRequest => images("File Signature_.png");
-   static get user => images("User Circle_.png");
-   static get clock => images("icon _Clock_.png");
+   static get edit => images("edit.png");
+   static get addShopImage => images("addshop.png");
+   static get shop => images("shop.png");
+   static get swatch => images("swatch.png");
 }

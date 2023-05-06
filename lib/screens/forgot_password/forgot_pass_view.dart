@@ -82,7 +82,7 @@ class ForgotPassView extends GetView<ForgotViewController> {
                                 height: Get.height * 0.07,
                                 width: Get.width * 0.4,
                                 clipBehavior: 0,
-                                radius: 30,
+                                radius: 30, fontSize: 20,
                               ),
                             ],
                           ),

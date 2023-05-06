@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:salesapp/components/app_dash_cards.dart';
 import 'package:salesapp/my_theme.dart';
+import 'package:salesapp/screens/addproduct/addproduct_view.dart';
+import 'package:salesapp/screens/addshop/addshop_view.dart';
+import 'package:salesapp/screens/personaldetails/personal_view.dart';
+import 'package:salesapp/screens/shoplists/shoplist_view.dart';
+import '../../app.dart';
 import '../../components/app_blue_card.dart';
-import '../../components/mycards.dart';
+import '../../services/privileges_resp.dart';
 import '../../utils/asset_helper.dart';
+import '../../utils/local_store.dart';
 import '../../utils/my_utils.dart';
 import 'dashboard_controller.dart';
 
 class DashBoardView extends GetView<DashboardViewController> {
   const DashBoardView({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -29,6 +35,22 @@ class DashBoardView extends GetView<DashboardViewController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          LocalStore.clearData();
+                          App.selectedSuborg =
+                              SelectedSuborg(id: -1, name: "All");
+                          SystemNavigator.pop();
+                        },
+                        icon: Icon(
+                          Icons.logout,
+                          color: Colors.white,
+                        )),
+                  ],
+                ),
                 CircleAvatar(
                   radius: 60.0,
                   backgroundColor: Colors.white,
@@ -65,7 +87,7 @@ class DashBoardView extends GetView<DashboardViewController> {
                                         ),
                                         IconButton(
                                             onPressed: () {
-                                              controller.removeImages();
+                                           //   controller.removeImages();
                                             },
                                             icon: Icon(Icons.delete))
                                       ],
@@ -186,42 +208,16 @@ class DashBoardView extends GetView<DashboardViewController> {
                       height: Get.height * .110,
                       text: "Personal Details",
                       onTap: () {
-                        //   Get.to(LeaveRequestView()
+                           Get.to(PersonalView());
                       },
                       image: AssetHelper.profileImage,
                     ),
                     DashBoardCards(
                       width: Get.width * .400,
                       height: Get.height * .110,
-                      text: "Personal Details",
+                      text: "Add a Shop",
                       onTap: () {
-                        //   Get.to(LeaveRequestView()
-                      },
-                      image: AssetHelper.profileImage,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: Get.height * .028,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    DashBoardCards(
-                      width: Get.width * .400,
-                      height: Get.height * .110,
-                      text: "Personal Details",
-                      onTap: () {
-                        //   Get.to(LeaveRequestView()
-                      },
-                      image: AssetHelper.profileImage,
-                    ),
-                    DashBoardCards(
-                      width: Get.width * .400,
-                      height: Get.height * .110,
-                      text: "Personal Details",
-                      onTap: () {
-                        //   Get.to(LeaveRequestView()
+                           Get.to(AddShopView());
                       },
                       image: AssetHelper.profileImage,
                     ),
@@ -236,9 +232,35 @@ class DashBoardView extends GetView<DashboardViewController> {
                     DashBoardCards(
                       width: Get.width * .400,
                       height: Get.height * .110,
-                      text: "Personal Details",
+                      text: "Shop Visits",
                       onTap: () {
-                        //   Get.to(LeaveRequestView()
+                           Get.to(ShopListView());
+                      },
+                      image: AssetHelper.profileImage,
+                    ),
+                    DashBoardCards(
+                      width: Get.width * .400,
+                      height: Get.height * .110,
+                      text: "Products View",
+                      onTap: () {
+                        Get.to(AddProductView());
+                      },
+                      image: AssetHelper.profileImage,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: Get.height * .028,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    DashBoardCards(
+                      width: Get.width * .400,
+                      height: Get.height * .110,
+                      text: "Products View",
+                      onTap: () {
+                           Get.to(AddProductView());
                       },
                       image: AssetHelper.profileImage,
                     ),
