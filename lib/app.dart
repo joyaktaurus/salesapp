@@ -21,7 +21,7 @@ import 'models/login_resp.dart';
 abstract class App{
   static const String appTitle = "Workhorse ERP";
   static const String appVersionName = "1.0.2";
-  static String? token = EmployeeDetails().apiToken;
+  static String token = '';
   static String appCurrency = '\u0024';
   static EmployeeDetails user = EmployeeDetails();
 //  static bool isAdmin = user.rolename == "ADMIN"?true:false;

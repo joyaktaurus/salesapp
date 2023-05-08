@@ -52,9 +52,8 @@ class LoginViewController extends GetxController {
         isLoggingProgress.value = false;
         return;
       }
-
       EmployeeDetails user = EmployeeDetails.fromJson(resp.rdata);
-      user.name = username;
+      user.email = username;
       App.token = user.apiToken ?? '';
 
       LocalStore.setData('user_id', user.userId);
@@ -70,8 +69,8 @@ class LoginViewController extends GetxController {
 
       // isLoggingProgress.value = false;
 
-      if (App.token!.isEmpty) {
-        Get.snackbar("Failed", "Login failed", backgroundColor: Colors.red);
+      if (App.token.isEmpty) {
+        Get.snackbar("Failed", "Login failed", backgroundColor: Colors.white);
         isLoggingProgress.value = false;
         return;
       } else {
