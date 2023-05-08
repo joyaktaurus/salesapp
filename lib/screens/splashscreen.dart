@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:salesapp/my_theme.dart';
 import 'package:salesapp/utils/asset_helper.dart';
+import '../app.dart';
 import '../routes.dart';
+import '../utils/err_m.dart';
+import '../utils/local_store.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,9 +19,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3),
-            ()=>Get.offNamed(Routes.login)
-    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await FetchDataFromLocalStore().userData();
+      App.token = App.user.apiToken ?? '';
+      log("token>>${App.user.apiToken}");
+      errM(() => checkAlreadyLogged());
+    });
   }
 
   @override
@@ -60,4 +67,18 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
+
+  Future<void> checkAlreadyLogged() async {
+    Future.delayed(
+      const Duration(milliseconds: 1400),
+          () async {
+        if (App.token.isEmpty) {
+          Get.offNamed(Routes.login);
+        } else {
+          Get.offNamed(Routes.dashBoardPage);
+        }
+      },
+    );
+  }
+
 }

@@ -52,30 +52,37 @@ class LoginViewController extends GetxController {
         isLoggingProgress.value = false;
         return;
       }
-      EmployeeDetails user = EmployeeDetails.fromJson(resp.rdata);
-      user.email = username;
-      App.token = user.apiToken ?? '';
+      User user = User.fromJson(resp.rdata);
+      // user.email = username;
+      // App.token = user.apiToken ?? '';
+      LocalStore.setData('user_id', user.employeeDetails!.userId);
+      LocalStore.setData('token', user.employeeDetails!.apiToken);
+      LocalStore.setData('name', user.employeeDetails!.name);
+      LocalStore.setData('user_lastname', user.employeeDetails!.dob);
+      LocalStore.setData('user_email_verified', user.employeeDetails!.email);
+      LocalStore.setData('user_two_factor_required', user.employeeDetails!.phone);
+      LocalStore.setData('user_rolename', user.employeeDetails!.gender);
 
-      LocalStore.setData('user_id', user.userId);
-      LocalStore.setData('token', user.apiToken);
-      LocalStore.setData('user_firstname', user.name);
-      LocalStore.setData('user_lastname', user.dob);
-      LocalStore.setData('user_email_verified', user.email);
-      LocalStore.setData('user_two_factor_required', user.phone);
-      LocalStore.setData('user_rolename', user.gender);
 
-
-      App.user = user;
+      App.user = user.employeeDetails!;
 
       // isLoggingProgress.value = false;
 
-      if (App.token.isEmpty) {
+
+      if (App.token.isEmpty == false) {
+        Get.snackbar("Failed", "Login failed", backgroundColor: Colors.white);
+        isLoggingProgress.value = false;
+        return;
+      }
+
+      if (user.employeeDetails!.name!.isEmpty) {
         Get.snackbar("Failed", "Login failed", backgroundColor: Colors.white);
         isLoggingProgress.value = false;
         return;
       } else {
         Get.offAllNamed(Routes.dashBoardPage);
       }
+
 
       // if (App.token.isNotEmpty) {
       //   final ApiResp privilegesResp =
@@ -85,7 +92,7 @@ class LoginViewController extends GetxController {
       //     return;
       //   }
       //
-      //   if (user.emailVerified == true) {
+      //   if (user.email == true) {
       //     Get.offAllNamed(Routes.dashBoardPage);
       //   } else {
       //     showMsg("Email not verified", "Failed");
