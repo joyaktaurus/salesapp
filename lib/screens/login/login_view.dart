@@ -106,6 +106,7 @@ class LoginView extends GetView<LoginViewController> {
                                     : MAButton(
                                       text: 'Sign In',
                                       buttonPress: () {
+                                       // Get.toNamed(Routes.dashBoardPage);
                                         MyUtils.hideKeyboard();
                                         errM(() => controller.doLogin());
                                       },

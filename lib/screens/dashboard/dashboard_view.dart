@@ -11,6 +11,7 @@ import 'package:salesapp/screens/personaldetails/personal_view.dart';
 import 'package:salesapp/screens/shoplists/shoplist_view.dart';
 import '../../app.dart';
 import '../../components/app_blue_card.dart';
+import '../../routes.dart';
 import '../../services/privileges_resp.dart';
 import '../../utils/asset_helper.dart';
 import '../../utils/local_store.dart';
@@ -43,7 +44,7 @@ class DashBoardView extends GetView<DashboardViewController> {
                           LocalStore.clearData();
                           App.selectedSuborg =
                               SelectedSuborg(id: -1, name: "All");
-                          SystemNavigator.pop();
+                          Get.offNamed(Routes.login);
                         },
                         icon: Icon(
                           Icons.logout,

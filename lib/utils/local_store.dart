@@ -21,19 +21,14 @@ abstract class LocalStore {
 
 class FetchDataFromLocalStore {
   userData() async {
-    App.user = User(
-      userid: LocalStore.getInt('user_id'),
-      token: LocalStore.getString('token'),
-      firstname: LocalStore.getString('user_firstname'),
-      lastname: LocalStore.getString('user_lastname'),
-      emailVerified: LocalStore.getBool('user_email_verified'),
-      twoFactorRequired: LocalStore.getBool('user_two_factor_required'),
-      rolename: LocalStore.getString('user_rolename'),
-      custid: LocalStore.getInt('user_cust_id'),
-      custname: LocalStore.getString('user_cust_name'),
-      username: LocalStore.getString('user_name'),
-      roleid: LocalStore.getInt('user_role_id'),
-      root: LocalStore.getBool('user_root'),
+    App.user = EmployeeDetails(
+      userId: LocalStore.getString('userId'),
+      apiToken: LocalStore.getString('apiToken'),
+      name: LocalStore.getString('name'),
+      gender: LocalStore.getString('gender'),
+      dob: LocalStore.getString('dob'),
+      phone: LocalStore.getString('phone'),
+      email: LocalStore.getString('email'),
     );
     App.token = LocalStore.getString('token') ?? '';
   }

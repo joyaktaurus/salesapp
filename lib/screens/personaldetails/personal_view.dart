@@ -3,9 +3,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:salesapp/components/app_alertbox.dart';
 import 'package:salesapp/screens/personaldetails/personal_controller.dart';
+import '../../app.dart';
 import '../../components/app_body_view.dart';
 import '../../components/app_boxes.dart';
 import '../../components/mycards.dart';
+import '../../models/login_resp.dart';
+import '../../models/login_resp.dart';
 import '../../my_theme.dart';
 import '../../utils/asset_helper.dart';
 import '../../utils/my_utils.dart';
@@ -61,18 +64,27 @@ class PersonalView extends GetView<PersonalController> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    "Employee ID",
-                                    style: MyTheme.regularTextStyle(
-                                      color: Colors.black,
-                                      fontSize: Get.height * .016,
+                                  Wrap(children: [
+                                    Text(
+                                      "Employee ID : ",
+                                      style: MyTheme.regularTextStyle(
+                                        color: Colors.black,
+                                        fontSize: Get.height * .016,
+                                      ),
                                     ),
-                                  ),
+                                    Text(
+                                      "${App.user.gender}",
+                                      style: MyTheme.regularTextStyle(
+                                        color: Colors.black,
+                                        fontSize: Get.height * .016,
+                                      ),
+                                    ),
+                                  ]),
                                   GestureDetector(
                                     onTap: () {
                                       MarkCleanAlert(context);

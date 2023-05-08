@@ -53,28 +53,24 @@ class LoginViewController extends GetxController {
         return;
       }
 
-      User user = User.fromJson(resp.rdata);
-      user.username = username;
-      App.token = user.token ?? '';
+      EmployeeDetails user = EmployeeDetails.fromJson(resp.rdata);
+      user.name = username;
+      App.token = user.apiToken ?? '';
 
-      LocalStore.setData('user_id', user.userid);
-      LocalStore.setData('token', user.token);
-      LocalStore.setData('user_firstname', user.firstname);
-      LocalStore.setData('user_lastname', user.lastname);
-      LocalStore.setData('user_email_verified', user.emailVerified);
-      LocalStore.setData('user_two_factor_required', user.twoFactorRequired);
-      LocalStore.setData('user_rolename', user.rolename);
-      LocalStore.setData('user_cust_id', user.custid);
-      LocalStore.setData('user_cust_name', user.custname);
-      LocalStore.setData('user_root', user.root);
-      LocalStore.setData('user_role_id', user.roleid);
-      LocalStore.setData('user_name', username);
+      LocalStore.setData('user_id', user.userId);
+      LocalStore.setData('token', user.apiToken);
+      LocalStore.setData('user_firstname', user.name);
+      LocalStore.setData('user_lastname', user.dob);
+      LocalStore.setData('user_email_verified', user.email);
+      LocalStore.setData('user_two_factor_required', user.phone);
+      LocalStore.setData('user_rolename', user.gender);
+
 
       App.user = user;
 
       // isLoggingProgress.value = false;
 
-      if (App.token.isEmpty) {
+      if (App.token!.isEmpty) {
         Get.snackbar("Failed", "Login failed", backgroundColor: Colors.red);
         isLoggingProgress.value = false;
         return;

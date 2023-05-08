@@ -31,7 +31,7 @@ class MyDio {
       responseType: ResponseType.plain,
       headers: {
         Headers.contentTypeHeader: "application/json",
-        if (App.token.isNotEmpty) "Authorization": "Token ${App.user.token}",
+        if (App.token!.isNotEmpty) "Authorization": "Token ${App.user.apiToken}",
         if (App.subOrgs.isNotEmpty) "Suborg": App.selectedSuborg.id,
       },
     );

@@ -21,13 +21,15 @@ import 'models/login_resp.dart';
 abstract class App{
   static const String appTitle = "Workhorse ERP";
   static const String appVersionName = "1.0.2";
-  static String token = '';
+  static String? token = EmployeeDetails().apiToken;
   static String appCurrency = '\u0024';
-  static User user = User();
-  static bool isAdmin = user.rolename == "ADMIN"?true:false;
+  static EmployeeDetails user = EmployeeDetails();
+//  static bool isAdmin = user.rolename == "ADMIN"?true:false;
   static List<Suborg> subOrgs = [];//Suborg(id: -1,name: "All")
   static List<ResourcePrivilege> resourcePrivilege = [];
   static List<GridView> gridView = [];
   static List<SelectedSuborg> suborgDropdown = [SelectedSuborg(id: -1,name: "All")];
   static SelectedSuborg selectedSuborg = SelectedSuborg(id: -1,name: "All");
+
+
 }
