@@ -11,9 +11,6 @@
 //   static bool isAdmin = customer.token == "ADMIN"?true:false;
 // }
 
-
-
-
 import 'package:salesapp/services/privileges_resp.dart';
 
 import 'models/login_resp.dart';

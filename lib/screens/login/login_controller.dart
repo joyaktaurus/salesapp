@@ -83,21 +83,6 @@ class LoginViewController extends GetxController {
         Get.offAllNamed(Routes.dashBoardPage);
       }
 
-
-      // if (App.token.isNotEmpty) {
-      //   final ApiResp privilegesResp =
-      //       await PrivilegeServices.fetchCurrentUserPrivileges();
-      //   if (privilegesResp.ok == false) {
-      //     isLoggingProgress.value = false;
-      //     return;
-      //   }
-      //
-      //   if (user.email == true) {
-      //     Get.offAllNamed(Routes.dashBoardPage);
-      //   } else {
-      //     showMsg("Email not verified", "Failed");
-      //   }
-      // }
     }
   }
 }

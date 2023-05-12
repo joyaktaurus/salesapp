@@ -57,7 +57,7 @@ class DashBoardView extends GetView<DashboardViewController> {
                   backgroundColor: Colors.white,
                   child: CircleAvatar(
                     backgroundColor: Colors.red,
-                    // foregroundImage: AssetImage(AssetHelper.lakeSmall),
+                    //foregroundImage: AssetImage(AssetHelper.lakeSmall),
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: GestureDetector(
@@ -190,8 +190,9 @@ class DashBoardView extends GetView<DashboardViewController> {
                   height: Get.height * .028,
                 ),
                 Text(
-                  "TOM JOE",
+                  "${App.user.name?.toUpperCase()}",
                   style: MyTheme.regularTextStyle(
+                    fontWeight: FontWeight.w600,
                       fontSize: Get.height * .027, color: MyTheme.whiteColor),
                 ),
               ],

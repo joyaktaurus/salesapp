@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import '../app.dart';
 import '../my_theme.dart';
 import '../routes.dart';
 import '../utils/asset_helper.dart';
@@ -40,7 +41,7 @@ void MarkCleanAlert(BuildContext context) {
               TextFormField(
                 // controller: controller.userCtrl,
                 // focusNode: controller.userCtrlfocusNode,
-                decoration: textBoxDecoration('Email'),
+                decoration: textBoxDecoration('${App.user.email}'),
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(height: Get.height * .03),
