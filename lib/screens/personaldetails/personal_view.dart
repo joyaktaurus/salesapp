@@ -6,10 +6,12 @@ import 'package:salesapp/screens/personaldetails/personal_controller.dart';
 import '../../app.dart';
 import '../../components/app_body_view.dart';
 import '../../components/app_boxes.dart';
+import '../../components/app_buttons.dart';
 import '../../components/mycards.dart';
 import '../../models/login_resp.dart';
 import '../../models/login_resp.dart';
 import '../../my_theme.dart';
+import '../../routes.dart';
 import '../../utils/asset_helper.dart';
 import '../../utils/my_utils.dart';
 
@@ -179,3 +181,69 @@ class PersonalView extends GetView<PersonalController> {
     );
   }
 }
+void MarkCleanAlert(BuildContext context) {
+  showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(45))),
+          title: Container(
+            width: Get.width * .9,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(Icons.close,
+                            color: MyTheme.myBlueDark, size: 15))
+                  ],
+                ),
+                Text(
+                  "UPDATE INFORMATION",
+                  style: MyTheme.regularTextStyle(
+                      color: MyTheme.myBlueDark,
+                      fontSize: Get.height * .020,
+                      fontWeight: FontWeight.w600),
+                ),
+                SizedBox(height: Get.height * .03),
+                TextFormField(
+                  // controller: controller.userCtrl,
+                  // focusNode: controller.userCtrlfocusNode,
+                  decoration: textBoxDecoration('Email'),
+                  textInputAction: TextInputAction.next,
+                ),
+                SizedBox(height: Get.height * .03),
+                TextFormField(
+                  // controller: controller.userCtrl,
+                  // focusNode: controller.userCtrlfocusNode,
+                  decoration: textBoxDecoration('Mobile Number'),
+                  textInputAction: TextInputAction.next,
+                ),
+                SizedBox(height: Get.height * .0039),
+                MAButton(
+                  text: 'Update',
+                  buttonPress: () {
+                    Get.offNamed(Routes.dashBoardPage);
+                  },
+                  isEnabled: true,
+                  padding: const EdgeInsets.all(30),
+                  height: Get.height * 0.06,
+                  width: Get.width * 0.3,
+                  clipBehavior: 0,
+                  radius: 30, fontSize: 20,
+                ),
+              ],
+            ),
+          ),
+        );
+      });
+}
+
+

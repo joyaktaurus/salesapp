@@ -4,16 +4,20 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:salesapp/screens/personaldetails/personal_controller.dart';
 import '../../components/app_body_view.dart';
 import '../../components/app_buttons.dart';
+import '../../components/app_textfield.dart';
 import '../../my_theme.dart';
 import '../../routes.dart';
 import '../../utils/asset_helper.dart';
+import '../../utils/err_m.dart';
 import '../../utils/my_utils.dart';
+import 'addshop_controller.dart';
 
-class AddShopView extends GetView<PersonalController> {
+class AddShopView extends GetView<AddShopController> {
   const AddShopView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Get.put(AddShopController());
     return GestureDetector(
         onTap: () {
           MyUtils.hideKeyboard();
@@ -52,57 +56,57 @@ class AddShopView extends GetView<PersonalController> {
                   child: Column(
                     children: [
                       TextFormField(
-                        // controller: controller.userCtrl,
-                        // focusNode: controller.userCtrlfocusNode,
+                         controller: controller.shopnameCtrl,
+                         focusNode: controller.shopnameCtrlfNode,
                         decoration: textBoxDecoration('Shop Name'),
                         textInputAction: TextInputAction.next,
                       ),
                       SizedBox(height: Get.height * .01),
                       TextFormField(
-                        // controller: controller.userCtrl,
-                        // focusNode: controller.userCtrlfocusNode,
+                        controller: controller.cusnameCtrl,
+                        focusNode: controller.cusnameCtrlfNode,
                         decoration: textBoxDecoration('Customer Name'),
                         textInputAction: TextInputAction.next,
                       ),
                       SizedBox(height: Get.height * .01),
                       TextFormField(
-                        // controller: controller.userCtrl,
-                        // focusNode: controller.userCtrlfocusNode,
+                        controller: controller.phonenumCtrl,
+                        focusNode: controller.phonenumCtrlfNode,
                         decoration: textBoxDecoration('Phone Number'),
                         textInputAction: TextInputAction.next,
                       ),
                       SizedBox(height: Get.height * .01),
                       TextFormField(
-                        // controller: controller.userCtrl,
-                        // focusNode: controller.userCtrlfocusNode,
+                        controller: controller.emailCtrl,
+                        focusNode: controller.emailCtrlfNode,
                         decoration: textBoxDecoration('E-mail'),
                         textInputAction: TextInputAction.next,
                       ),
                       SizedBox(height: Get.height * .01),
                       TextFormField(
-                        // controller: controller.userCtrl,
-                        // focusNode: controller.userCtrlfocusNode,
+                        controller: controller.addressoneCtrl,
+                        focusNode: controller.addressoneCtrlfNode,
                         decoration: textBoxDecoration('Address Line 1'),
                         textInputAction: TextInputAction.next,
                       ),
                       SizedBox(height: Get.height * .01),
                       TextFormField(
-                        // controller: controller.userCtrl,
-                        // focusNode: controller.userCtrlfocusNode,
+                        controller: controller.addresstwoCtrl,
+                        focusNode: controller.addresstwoCtrlfNode,
                         decoration: textBoxDecoration('Address Line 2'),
                         textInputAction: TextInputAction.next,
                       ),
                       SizedBox(height: Get.height * .01),
                       TextFormField(
-                        // controller: controller.userCtrl,
-                        // focusNode: controller.userCtrlfocusNode,
+                        controller: controller.pincodeCtrl,
+                        focusNode: controller.pincodeCtrlfNode,
                         decoration: textBoxDecoration('Pincode'),
                         textInputAction: TextInputAction.next,
                       ),
                       SizedBox(height: Get.height * .01),
                       TextFormField(
-                        // controller: controller.userCtrl,
-                        // focusNode: controller.userCtrlfocusNode,
+                        controller: controller.instructCtrl,
+                        focusNode: controller.instructCtrlfNode,
                         decoration: textBoxDecoration('Instructions'),
                         textInputAction: TextInputAction.next,
                       ),
@@ -116,7 +120,8 @@ class AddShopView extends GetView<PersonalController> {
                   child: MAButton(
                     text: 'Submit',
                     buttonPress: () {
-                      Get.offNamed(Routes.dashBoardPage);
+                      MyUtils.hideKeyboard();
+                      errM(() => controller.shopRegister());
                     },
                     isEnabled: true,
                     padding: const EdgeInsets.all(30),
