@@ -25,4 +25,6 @@ abstract class AssetHelper {
    static get addShopImage => images("addshop.png");
    static get shop => images("shop.png");
    static get swatch => images("swatch.png");
+   static get proView => images("proview.png");
+   static get profilePic => images("profilepic.png");
 }

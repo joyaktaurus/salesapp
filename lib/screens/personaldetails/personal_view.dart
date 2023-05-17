@@ -28,7 +28,12 @@ class PersonalView extends GetView<PersonalController> {
             backgroundColor: Colors.grey[200],
             body: Stack(children: [
               BodyView(
-                color: Colors.red,
+                // child: Container(
+                //   child: CircleAvatar(
+                //     backgroundImage: AssetHelper.profilePic,
+                //   ),
+                // ),
+                color: Colors.grey,
                 width: Get.width * .270,
                 height: Get.height * .270,
               ),

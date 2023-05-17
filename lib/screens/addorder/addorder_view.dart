@@ -18,6 +18,7 @@ class AddOrderView extends GetView<AddOrderController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(AddOrderController());
     return GestureDetector(
         onTap: () {
           MyUtils.hideKeyboard();
@@ -87,7 +88,7 @@ class AddOrderView extends GetView<AddOrderController> {
                                           ),
                                         ),
                                         Text(
-                                          "Owner Name",
+                                          App.shopdetatils[widgetId].customerName!,
                                           style: MyTheme.regularTextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.grey,
@@ -108,91 +109,137 @@ class AddOrderView extends GetView<AddOrderController> {
                               child: Container(
                                 width: Get.width * .9,
                                 height: Get.height * .06,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(45),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      spreadRadius: 3,
+                                      blurRadius: 8,
+                                      offset: Offset(
+                                          2, 0), // changes position of shadow
+                                    )
+                                  ],
+                                  color: Colors.white,
+                                ),
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 20, right: 20),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Icon(
-                                        Icons.calendar_month_outlined,
-                                        color: MyTheme.myBlueDark,
+                                      IconButton(
+                                          onPressed: () {
+                                            controller.choosestartDate();
+                                          },
+                                          icon: Icon(Icons.calendar_month,
+                                              color: MyTheme.myBlueDark)),
+                                      //  SizedBox(width: Get.width * .05),
+                                      Obx( () =>
+                                          Text( controller.selectedDate.value,
+                                              style: MyTheme.regularTextStyle(
+                                                  fontSize: Get.height * .014,
+                                                  color: Colors.black)),
                                       ),
-                                      SizedBox(width: Get.width * .05),
-                                      Text("Select Date",
-                                          style: MyTheme.regularTextStyle(
-                                              fontSize: Get.height * .014,
-                                              color: Colors.black)),
                                     ],
                                   ),
                                 ),
                               ),
                             ),
                             SizedBox(height: Get.height * .020),
+                            // Container(
+                            //   width: Get.width * .9,
+                            //   height: Get.height * .27,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(45),
+                            //     boxShadow: [
+                            //       BoxShadow(
+                            //         color: Colors.black.withOpacity(0.1),
+                            //         spreadRadius: 3,
+                            //         blurRadius: 8,
+                            //         offset: Offset(
+                            //             2, 0), // changes position of shadow
+                            //       )
+                            //     ],
+                            //     color: Colors.white,
+                            //   ),
+                            //   child: Padding(
+                            //     padding:
+                            //     EdgeInsets.only(left: 20, right: 20, top: 20),
+                            //     child: Column(
+                            //       crossAxisAlignment: CrossAxisAlignment.start,
+                            //       children: [
+                            //         Text("Products",
+                            //             style: MyTheme.regularTextStyle(
+                            //                 fontSize: Get.height * .014,
+                            //                 color: Colors.black)),
+                            //         SizedBox(height: Get.height * .07),
+                            //         Row(
+                            //           mainAxisAlignment: MainAxisAlignment.start,
+                            //           children: [
+                            //             Icon(
+                            //               Icons.add,
+                            //               color: Colors.grey,
+                            //             ),
+                            //             SizedBox(width: Get.width * .05),
+                            //             Text("Empty! Click here to add products",
+                            //                 style: MyTheme.regularTextStyle(
+                            //                     fontSize: Get.height * .014,
+                            //                     color: Colors.grey)),
+                            //           ],
+                            //         ),
+                            //         SizedBox(height: Get.height * .05),
+                            //         Padding(
+                            //           padding: EdgeInsets.only(left: 260),
+                            //           child: CircleAvatar(
+                            //             radius: 20,
+                            //             child: IconButton(
+                            //               onPressed: () {
+                            //                 Get.to(AddProductView());
+                            //               },
+                            //               icon: Icon(Icons.add),
+                            //             ),
+                            //           ),
+                            //         )
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
                             Container(
                               width: Get.width * .9,
-                              height: Get.height * .27,
+                              height: Get.height * .17,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(45),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    spreadRadius: 3,
-                                    blurRadius: 8,
-                                    offset: Offset(
-                                        2, 0), // changes position of shadow
-                                  )
+                                    offset: Offset.zero,
+                                    color: Colors.grey.shade300,
+                                    blurStyle: BlurStyle.outer,
+                                    blurRadius: 10,
+                                  ),
                                 ],
-                                color: Colors.white,
                               ),
-                              child: Padding(
-                                padding:
-                                EdgeInsets.only(left: 20, right: 20, top: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Products",
-                                        style: MyTheme.regularTextStyle(
-                                            fontSize: Get.height * .014,
-                                            color: Colors.black)),
-                                    SizedBox(height: Get.height * .07),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.add,
-                                          color: Colors.grey,
-                                        ),
-                                        SizedBox(width: Get.width * .05),
-                                        Text("Empty! Click here to add products",
-                                            style: MyTheme.regularTextStyle(
-                                                fontSize: Get.height * .014,
-                                                color: Colors.grey)),
-                                      ],
-                                    ),
-                                    SizedBox(height: Get.height * .05),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 260),
-                                      child: CircleAvatar(
-                                        radius: 20,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            Get.to(AddProductView());
-                                          },
-                                          icon: Icon(Icons.add),
-                                        ),
-                                      ),
-                                    )
-                                  ],
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.only(left: 20, top: 10),
+                                  labelText: 'Add Products',
+                                  labelStyle: MyTheme.regularTextStyle(
+                                    fontSize: Get.height * 0.014,
+                                    color: Colors.black,
+
+                                  ),
                                 ),
                               ),
                             ),
                             SizedBox(height: Get.height * .01),
-                            ProfileRows("Sub Total : ", "10000"),
-                            ProfileRows("Tax Implied : ", "100"),
+                            ProfileRows("Sub Total : ", ""),
+                            ProfileRows("Tax Implied : ", ""),
                             SizedBox(height: Get.height * .01),
-                            ProfileRows("Grand Total : ", "11000"),
-                            ProfileRows("Credits Applied : ", "100"),
-                            ProfileRows("Balance Due : ", "100"),
+                            ProfileRows("Grand Total : ", ""),
+                            ProfileRows("Credits Applied : ", ""),
+                            ProfileRows("Balance Due : ", ""),
                             SizedBox(height: Get.height * .01),
                             Divider(thickness: 1),
                             SizedBox(height: Get.height * .0001),

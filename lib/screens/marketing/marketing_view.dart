@@ -9,6 +9,7 @@ import '../../components/app_buttons.dart';
 import '../../my_theme.dart';
 import '../../routes.dart';
 import '../../utils/asset_helper.dart';
+import '../../utils/err_m.dart';
 import '../../utils/my_utils.dart';
 import '../shoplists/shoplist_controller.dart';
 import 'marketing_controller.dart';
@@ -20,8 +21,8 @@ class MarketingView extends GetView<MarketingController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ShopListController());
-    return GestureDetector(
+    Get.put(MarketingController());
+      return GestureDetector(
         onTap: () {
           MyUtils.hideKeyboard();
         },
@@ -49,14 +50,14 @@ class MarketingView extends GetView<MarketingController> {
                 padding: EdgeInsets.only(top: Get.height * .220),
                 child: AppBoxes(
                     width: Get.width * .9,
-                    height: Get.height * .65,
+                    height: Get.height * .60,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(top: 5, left: 20),
+                              padding: EdgeInsets.only(top: 10, left: 20),
                               child: Row(
                                 children: [
                                   Column(
@@ -90,11 +91,11 @@ class MarketingView extends GetView<MarketingController> {
                                           ),
                                         ),
                                         Text(
-                                          "Owner Name",
+                                          App.shopdetatils[widgetId].customerName!,
                                           style: MyTheme.regularTextStyle(
                                             fontWeight: FontWeight.w600,
-                                            color: Colors.grey,
-                                            fontSize: Get.height * .013,
+                                            color: Colors.black87,
+                                            fontSize: Get.height * .015,
                                           ),
                                         ),
                                       ],
@@ -104,7 +105,7 @@ class MarketingView extends GetView<MarketingController> {
                               ),
                             ),
                             Divider(thickness: 2),
-                            SizedBox(height: Get.height * .012),
+                            SizedBox(height: Get.height * .015),
                             Container(
                               width: Get.width * .9,
                               height: Get.height * .06,
@@ -126,79 +127,85 @@ class MarketingView extends GetView<MarketingController> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Icon(
-                                      Icons.calendar_month_outlined,
-                                      color: MyTheme.myBlueDark,
+                                    IconButton(
+                                        onPressed: () {
+                                          controller.choosestartDate();
+                                        },
+                                        icon: Icon(Icons.calendar_month,
+                                            color: MyTheme.myBlueDark)),
+                                  //  SizedBox(width: Get.width * .05),
+                                    Obx( () =>
+                                     Text( controller.selectedDate.value,
+                                          style: MyTheme.regularTextStyle(
+                                              fontSize: Get.height * .014,
+                                              color: Colors.black)),
                                     ),
-                                    SizedBox(width: Get.width * .05),
-                                    Text("Select Date",
-                                        style: MyTheme.regularTextStyle(
-                                            fontSize: Get.height * .014,
-                                            color: Colors.black)),
                                   ],
                                 ),
                               ),
                             ),
-                            SizedBox(height: Get.height * .020),
+                            SizedBox(height: Get.height * .030),
                             Container(
-                              width: Get.width * .9,
-                              height: Get.height * .06,
+                                width: Get.width * .9,
+                                height: Get.height * .17,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(45),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    spreadRadius: 3,
-                                    blurRadius: 8,
-                                    offset: Offset(
-                                        2, 0), // changes position of shadow
-                                  )
+                                    offset: Offset.zero,
+                                    color: Colors.grey.shade300,
+                                    blurStyle: BlurStyle.outer,
+                                    blurRadius: 10,
+                                  ),
                                 ],
-                                color: Colors.white,
                               ),
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 20, right: 20),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text("Order To",
-                                        style: MyTheme.regularTextStyle(
-                                            fontSize: Get.height * .014,
-                                            color: Colors.black)),
-                                  ],
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.only(left: 20, top: 10),
+                                  labelText: 'Order Notes',
+                                  labelStyle: MyTheme.regularTextStyle(
+                                    fontSize: Get.height * 0.014,
+                                    color: Colors.black,
+
+                                  ),
                                 ),
                               ),
                             ),
+
                             SizedBox(height: Get.height * .020),
-                            Container(
-                              width: Get.width * .9,
-                              height: Get.height * .17,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(45),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    spreadRadius: 3,
-                                    blurRadius: 8,
-                                    offset: Offset(
-                                        2, 0), // changes position of shadow
-                                  )
-                                ],
-                                color: Colors.white,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 20, top: 10),
-                                child: Text("Order Notes",
-                                    style: MyTheme.regularTextStyle(
-                                        fontSize: Get.height * .014,
-                                        color: Colors.black)),
-                              ),
-                            ),
-                            SizedBox(height: Get.height * .020),
+                            // Container(
+                            //   width: Get.width * .9,
+                            //   height: Get.height * .17,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(45),
+                            //     boxShadow: [
+                            //       BoxShadow(
+                            //         color: Colors.black.withOpacity(0.1),
+                            //         spreadRadius: 3,
+                            //         blurRadius: 8,
+                            //         offset: Offset(
+                            //             2, 0), // changes position of shadow
+                            //       )
+                            //     ],
+                            //     color: Colors.white,
+                            //   ),
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.only(left: 20, top: 10),
+                            //     child: Text("Order Notes",
+                            //         style: MyTheme.regularTextStyle(
+                            //             fontSize: Get.height * .014,
+                            //             color: Colors.black)),
+                            //   ),
+                            // ),
+                            SizedBox(height: Get.height * .010),
                             MAButton(
                               text: 'Submit',
                               buttonPress: () {
-                                Get.offNamed(Routes.dashBoardPage);
+                                MyUtils.hideKeyboard();
+                                errM(() => controller.shopMarketing());
                               },
                               isEnabled: true,
                               padding: const EdgeInsets.all(30),
@@ -250,4 +257,34 @@ class MarketingView extends GetView<MarketingController> {
       ),
     );
   }
+}
+Widget MesssageBox() {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      TextFormField(
+        minLines: 2,
+        maxLines: 5,
+        keyboardType: TextInputType.multiline,
+        // onSaved: (value) => _message = value,
+        // onChanged: (value) {
+        //   _message = value;
+        // },
+        // validator: (value) {
+        //   if (value.isEmpty) {
+        //     return "Enter Message";
+        //   } else {
+        //     return null;
+        //   }
+        // },
+        decoration: InputDecoration(
+          labelText: 'Order Notes',
+          hintStyle: TextStyle(color: Colors.grey),
+          // enabledBorder: myinputborder(),
+          // focusedBorder: myfocusborder(),
+          border: InputBorder.none
+        ),
+      ),
+    ],
+  );
 }

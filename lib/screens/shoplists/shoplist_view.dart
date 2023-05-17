@@ -148,7 +148,7 @@ class ShopListView extends GetView<ShopListController> {
                                               ),
                                             ),
                                             Text(
-                                              'Owner Name',
+                                              '${customers.customerName}',
                                               style: MyTheme.regularTextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: Get.height * .012,
@@ -199,16 +199,24 @@ class ShopListView extends GetView<ShopListController> {
                                                   child: Container(
                                                     width: Get.width * .4,
                                                     child: RadioListTile(
-                                                      title: Text(
-                                                        'Marketing',
-                                                        style: MyTheme
-                                                            .regularTextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: MyTheme
-                                                              .myBlueDark,
-                                                          fontSize:
-                                                              Get.height * .014,
+                                                      title: GestureDetector(
+                                                        onTap: () {
+                                                          Get.to(MarketingView(
+                                                            widgetId: controller
+                                                                .currentPage,
+                                                          ));
+                                                        },
+                                                        child: Text(
+                                                          'Marketing',
+                                                          style: MyTheme
+                                                              .regularTextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: MyTheme
+                                                                .myBlueDark,
+                                                            fontSize:
+                                                                Get.height * .014,
+                                                          ),
                                                         ),
                                                       ),
                                                       value: 1,
@@ -218,10 +226,10 @@ class ShopListView extends GetView<ShopListController> {
                                                         controller
                                                             .setSelectedOption(
                                                                 value!);
-                                                        Get.to(MarketingView(
-                                                          widgetId: controller
-                                                              .currentPage,
-                                                        ));
+                                                        // Get.to(MarketingView(
+                                                        //   widgetId: controller
+                                                        //       .currentPage,
+                                                        // ));
                                                       },
                                                     ),
                                                   ),
@@ -238,16 +246,24 @@ class ShopListView extends GetView<ShopListController> {
                                                   child: Container(
                                                     width: Get.width * .4,
                                                     child: RadioListTile(
-                                                      title: Text(
-                                                        'Sales',
-                                                        style: MyTheme
-                                                            .regularTextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: MyTheme
-                                                              .myBlueDark,
-                                                          fontSize:
-                                                              Get.height * .014,
+                                                      title: GestureDetector(
+                                                        onTap: () {
+                                                          Get.to(AddOrderView(
+                                                            widgetId: controller
+                                                                .currentPage,
+                                                          ));
+                                                        },
+                                                        child: Text(
+                                                          'Sales',
+                                                          style: MyTheme
+                                                              .regularTextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: MyTheme
+                                                                .myBlueDark,
+                                                            fontSize:
+                                                                Get.height * .014,
+                                                          ),
                                                         ),
                                                       ),
                                                       value: 2,
@@ -257,10 +273,10 @@ class ShopListView extends GetView<ShopListController> {
                                                         controller
                                                             .setSelectedOption(
                                                                 value!);
-                                                        Get.to(AddOrderView(
-                                                          widgetId: controller
-                                                              .currentPage,
-                                                        ));
+                                                        // Get.to(AddOrderView(
+                                                        //   widgetId: controller
+                                                        //       .currentPage,
+                                                        // ));
                                                       },
                                                     ),
                                                   ),

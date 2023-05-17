@@ -32,7 +32,7 @@ class MyDio {
       headers: {
         Headers.contentTypeHeader: "application/json",
         if (App.token!.isNotEmpty) "Authorization": "Token ${App.user.apiToken}",
-        if (App.subOrgs.isNotEmpty) "Suborg": App.selectedSuborg.id,
+      //  if (App.subOrgs.isNotEmpty) "Suborg": App.selectedSuborg.id,
       },
     );
 

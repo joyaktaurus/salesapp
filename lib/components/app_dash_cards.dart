@@ -7,6 +7,9 @@ class DashBoardCards extends StatelessWidget {
   final double width;
   final double height;
   final String text;
+  final double? widthh;
+  final double? heightt;
+  final Scale;
 
 //  final String svg;
   final String image;
@@ -19,42 +22,43 @@ class DashBoardCards extends StatelessWidget {
     required this.text,
     required this.onTap,
     // required this.svg,
-    required this.image,
+    required this.image,  this.widthh, this.heightt, this.Scale,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(45)),
-        child: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.9),
-                spreadRadius: 7,
-                blurRadius: 1,
-                offset: Offset(
-                    2, 5), // changes position of shadow
-              )
-            ],
-            color: Colors.white,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(50)
           ),
-          height: height,
-          width: width,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(image),
-                SizedBox(height: Get.height * 0.01),
-                Text(
-                  text,
-                  style: TextStyle(color: Colors.black, fontSize: 15),
-                ),
-              ],
+          boxShadow: [
+            BoxShadow(
+              offset: Offset.zero,
+              color: Colors.grey.shade300,
+              blurStyle: BlurStyle.outer,
+              blurRadius: 10,
             ),
+          ],
+          color: Colors.white,
+        ),
+        height: height,
+        width: width,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(image,
+                width: widthh, height: heightt, scale: Scale,
+                ),
+              SizedBox(height: Get.height * 0.01),
+              Text(
+                text,
+                style: TextStyle(color: Colors.black, fontSize: 15),
+              ),
+            ],
           ),
         ),
       ),

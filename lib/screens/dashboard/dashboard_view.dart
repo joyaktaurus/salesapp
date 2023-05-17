@@ -29,35 +29,38 @@ class DashBoardView extends GetView<DashboardViewController> {
         child: Scaffold(
             body: Stack(children: [
           MyBlueCard(
-            height: Get.height * .333,
+            height: Get.height * 0.50,
             color: MyTheme.myBlueDark,
             clipBehavior: 0,
             radius: 50,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          LocalStore.clearData();
-                          App.selectedSuborg =
-                              SelectedSuborg(id: -1, name: "All");
-                          Get.offNamed(Routes.login);
-                        },
-                        icon: Icon(
-                          Icons.logout,
-                          color: Colors.white,
-                        )),
-                  ],
+                Padding(
+                  padding:  EdgeInsets.only(left: 100, top: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            LocalStore.clearData();
+                            App.selectedSuborg =
+                                SelectedSuborg(id: -1, name: "All");
+                            Get.offNamed(Routes.login);
+                          },
+                          icon: Icon(
+                            Icons.logout,
+                            color: Colors.white,
+                          )),
+                    ],
+                  ),
                 ),
                 CircleAvatar(
                   radius: 60.0,
                   backgroundColor: Colors.white,
                   child: CircleAvatar(
-                    backgroundColor: Colors.red,
-                    //foregroundImage: AssetImage(AssetHelper.lakeSmall),
+                    //backgroundColor: Colors.red,
+                    backgroundImage: AssetImage(AssetHelper.profilePic),
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: GestureDetector(
@@ -199,7 +202,7 @@ class DashBoardView extends GetView<DashboardViewController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 350),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 500),
             child: Stack(children: [
               Column(children: [
                 Row(
@@ -207,7 +210,7 @@ class DashBoardView extends GetView<DashboardViewController> {
                   children: [
                     DashBoardCards(
                       width: Get.width * .400,
-                      height: Get.height * .110,
+                      height: Get.height * .140,
                       text: "Personal Details",
                       onTap: () {
                            Get.to(PersonalView());
@@ -216,93 +219,93 @@ class DashBoardView extends GetView<DashboardViewController> {
                     ),
                     DashBoardCards(
                       width: Get.width * .400,
-                      height: Get.height * .110,
+                      height: Get.height * .140,
                       text: "Add a Shop",
                       onTap: () {
                            Get.to(AddShopView());
                       },
-                      image: AssetHelper.profileImage,
+                      image: AssetHelper.addShopImage, widthh: 30, heightt: 30,
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: Get.height * .028,
+                  height: Get.height * .035,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     DashBoardCards(
                       width: Get.width * .400,
-                      height: Get.height * .110,
+                      height: Get.height * .140,
                       text: "Shop Visits",
                       onTap: () {
                            Get.to(ShopListView());
                       },
-                      image: AssetHelper.profileImage,
+                      image: AssetHelper.shop,Scale: .7,
                     ),
                     DashBoardCards(
                       width: Get.width * .400,
-                      height: Get.height * .110,
+                      height: Get.height * .140,
                       text: "Products View",
                       onTap: () {
                         Get.to(AddProductView());
                       },
-                      image: AssetHelper.profileImage,
+                      image: AssetHelper.proView,Scale: 1.1,
                     ),
                   ],
                 ),
                 SizedBox(
                   height: Get.height * .028,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    DashBoardCards(
-                      width: Get.width * .400,
-                      height: Get.height * .110,
-                      text: "Products View",
-                      onTap: () {
-                           Get.to(AddProductView());
-                      },
-                      image: AssetHelper.profileImage,
-                    ),
-                    DashBoardCards(
-                      width: Get.width * .400,
-                      height: Get.height * .110,
-                      text: "Personal Details",
-                      onTap: () {
-                        //   Get.to(LeaveRequestView()
-                      },
-                      image: AssetHelper.profileImage,
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //   children: [
+                //     DashBoardCards(
+                //       width: Get.width * .400,
+                //       height: Get.height * .110,
+                //       text: "Products View",
+                //       onTap: () {
+                //            Get.to(AddProductView());
+                //       },
+                //       image: AssetHelper.profileImage,
+                //     ),
+                //     DashBoardCards(
+                //       width: Get.width * .400,
+                //       height: Get.height * .110,
+                //       text: "Personal Details",
+                //       onTap: () {
+                //         //   Get.to(LeaveRequestView()
+                //       },
+                //       image: AssetHelper.profileImage,
+                //     ),
+                //   ],
+                // ),
                 SizedBox(
                   height: Get.height * .028,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    DashBoardCards(
-                      width: Get.width * .400,
-                      height: Get.height * .110,
-                      text: "Personal Details",
-                      onTap: () {
-                        //   Get.to(LeaveRequestView()
-                      },
-                      image: AssetHelper.profileImage,
-                    ),
-                    DashBoardCards(
-                      width: Get.width * .400,
-                      height: Get.height * .110,
-                      text: "Personal Details",
-                      onTap: () {
-                        //   Get.to(LeaveRequestView()
-                      },
-                      image: AssetHelper.profileImage,
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //   children: [
+                //     DashBoardCards(
+                //       width: Get.width * .400,
+                //       height: Get.height * .110,
+                //       text: "Personal Details",
+                //       onTap: () {
+                //         //   Get.to(LeaveRequestView()
+                //       },
+                //       image: AssetHelper.profileImage,
+                //     ),
+                //     DashBoardCards(
+                //       width: Get.width * .400,
+                //       height: Get.height * .110,
+                //       text: "Personal Details",
+                //       onTap: () {
+                //         //   Get.to(LeaveRequestView()
+                //       },
+                //       image: AssetHelper.profileImage,
+                //     ),
+                //   ],
+                // ),
               ]),
             ]),
           )
