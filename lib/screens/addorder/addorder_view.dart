@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:salesapp/components/app_boxes.dart';
 import 'package:salesapp/screens/addproduct/addproduct_view.dart';
+import '../../app.dart';
 import '../../components/app_body_view.dart';
 import '../../components/app_buttons.dart';
 import '../../my_theme.dart';
@@ -12,7 +13,8 @@ import '../../utils/my_utils.dart';
 import 'addorder_controller.dart';
 
 class AddOrderView extends GetView<AddOrderController> {
-  const AddOrderView({Key? key}) : super(key: key);
+  final widgetId;
+   AddOrderView({Key? key,required this.widgetId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,7 @@ class AddOrderView extends GetView<AddOrderController> {
                                       CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "shop 1".toUpperCase(),
+                                          App.shopdetatils[widgetId].shopName!.toUpperCase(),
                                           style: MyTheme.regularTextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: MyTheme.myBlueDark,

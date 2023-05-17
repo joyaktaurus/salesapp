@@ -77,7 +77,7 @@ class Routes {
     GetPage(
       binding: AddOrderBindings(),
       name: addOrderPage,
-      page: () => const AddOrderView(),
+      page: () =>  AddOrderView(widgetId: 0,),
     ),
     GetPage(
       binding: AddProductBindings(),
@@ -87,7 +87,7 @@ class Routes {
     GetPage(
       binding: MarketingBindings(),
       name: marketingPage,
-      page: () => const MarketingView(),
+      page: () =>  MarketingView(widgetId: 0,),
     ),
   ];
 }

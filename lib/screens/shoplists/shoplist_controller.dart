@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../app.dart';
 import '../../models/api_resp.dart';
 import '../../models/shop_list.dart';
 import '../../services/shoplist_services.dart';
@@ -64,6 +65,8 @@ class ShopListController extends GetxController {
     //Map body = customersListApiPayload;
     ApiResp resp = await ShopListServices.getList();
     myList.value = ShopList.fromJson(resp.rdata).shop.toList();
+    App.shopdetatils=myList.value;
+    print(App.shopdetatils.first.shopName);
     // log(resp.rdata.toString());
     // customersTotalCount.value = resp.rdata["count"];
     // resp.rdata["result"].forEach((element) {
