@@ -3,19 +3,24 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:salesapp/components/app_boxes.dart';
 import 'package:salesapp/screens/addproduct/addproduct_view.dart';
+import '../../app.dart';
 import '../../components/app_body_view.dart';
 import '../../components/app_buttons.dart';
 import '../../my_theme.dart';
 import '../../routes.dart';
 import '../../utils/asset_helper.dart';
 import '../../utils/my_utils.dart';
+import '../shoplists/shoplist_controller.dart';
 import 'marketing_controller.dart';
 
 class MarketingView extends GetView<MarketingController> {
-  const MarketingView({Key? key}) : super(key: key);
+  final widgetId;
+ MarketingView({Key? key,required this.widgetId}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ShopListController());
     return GestureDetector(
         onTap: () {
           MyUtils.hideKeyboard();
@@ -77,7 +82,7 @@ class MarketingView extends GetView<MarketingController> {
                                       CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "shop 1".toUpperCase(),
+                                          App.shopdetatils[widgetId].shopName!.toUpperCase(),
                                           style: MyTheme.regularTextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: MyTheme.myBlueDark,

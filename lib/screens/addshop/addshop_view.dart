@@ -13,7 +13,8 @@ import '../../utils/my_utils.dart';
 import 'addshop_controller.dart';
 
 class AddShopView extends GetView<AddShopController> {
-  const AddShopView({Key? key}) : super(key: key);
+
+  const AddShopView({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
