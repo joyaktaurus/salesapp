@@ -9,6 +9,7 @@ import '../../components/app_buttons.dart';
 import '../../my_theme.dart';
 import '../../routes.dart';
 import '../../utils/asset_helper.dart';
+import '../../utils/err_m.dart';
 import '../../utils/my_utils.dart';
 import 'addorder_controller.dart';
 
@@ -219,6 +220,7 @@ class AddOrderView extends GetView<AddOrderController> {
                                 ],
                               ),
                               child: TextFormField(
+                                controller: controller.addproductCtrl,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   filled: true,
@@ -246,7 +248,26 @@ class AddOrderView extends GetView<AddOrderController> {
                             MAButton(
                               text: 'Submit',
                               buttonPress: () {
-                                Get.offNamed(Routes.dashBoardPage);
+                                errM(() {
+                                  final AddOrderController marketingController = Get.find<AddOrderController>();
+                                  final String shopid = App.shopdetatils[widgetId].shopName.toString();
+                                  final String customername = App.shopdetatils[widgetId].customerName.toString();
+                                  final String orderdate = controller.selectedDate.value;
+                                  final String product_details = controller.addproductCtrl.text;
+                                  final String visitpurpose = 'sales';
+                                  final String longitude = 'longitude';
+                                  final String latitude = 'latitude';// Set the visit purpose
+
+                                  marketingController.submitMarketingData(shopid: '',
+                                      customername: customername,
+                                      longitude: longitude,
+                                      visitpurpose: visitpurpose,
+                                      latitude: latitude,
+                                      product_details:product_details,
+                                      orderdate: orderdate
+
+                                  );
+                                });
                               },
                               isEnabled: true,
                               padding: const EdgeInsets.all(30),

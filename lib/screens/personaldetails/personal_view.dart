@@ -151,7 +151,7 @@ class PersonalView extends GetView<PersonalController> {
                               ),
                             ),
                             SizedBox(height: Get.height * .007),
-                            ProfileRows("Territory Name : ", "Checkoslovakya"),
+                            ProfileRows("Territory Name : ", "Ernakulam"),
                           ],
                         ),
                       ),

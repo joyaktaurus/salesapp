@@ -152,7 +152,7 @@ class ShopListView extends GetView<ShopListController> {
                                               style: MyTheme.regularTextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: Get.height * .012,
-                                                color: Colors.grey,
+                                                color: Colors.black87,
                                               ),
                                             ),
                                             SizedBox(

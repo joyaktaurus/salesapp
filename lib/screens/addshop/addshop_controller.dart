@@ -51,7 +51,7 @@ class AddShopController extends GetxController {
       return;
     }
     Shop shop = Shop.fromJson(resp.rdata);
-     Get.snackbar(shop.message, 'success', backgroundColor: Colors.white);
+   // Get.snackbar(shop.message, 'success', backgroundColor: Colors.white);
     if (shop.message == 'Shop Details Entered Successfully') {
       shopnameCtrl.clear();
       cusnameCtrl.clear();

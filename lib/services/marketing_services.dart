@@ -4,33 +4,38 @@ import 'package:dio/dio.dart';
 import '../app.dart';
 import '../models/api_msg.dart';
 import '../models/api_resp.dart';
+import '../models/shop_list.dart';
 import '../presets/api_paths.dart';
 import '../utils/err_m.dart';
 import '../utils/mydio.dart';
 
+
 abstract class MarketingServices {
   static Future<ApiResp> fetchMarketing({
-    required String shopid,
+    required int shopid,
     required String visitdate,
     required String visitpurpose ,
     required String marketingnotes,
+  //  required String shopname,
+    required String customername, required shopname,
   }) async {
     dynamic resp;
     await errMAsync(
           () async {
-        resp = await MyDio().customPost(
-          ApiPaths.shopregister,
-          data: {
+            resp = await MyDio().customPost(
+              ApiPaths.marketing,
+              data: {
             'shopid': shopid,
             'visitdate': visitdate,
             'visitpurpose ': visitpurpose ,
             'marketingnotes': marketingnotes,
+             //   'shopname' : shopname,
+                'customername' : customername
           },
         );
       },
-      title: 'Shop Register Failed',
+    //  title: 'Marketing Failed',
     );
-
     if (resp is DioError) {
       if (resp.response?.statusCode == 400) {
         log('400 >> ${resp.response}');
@@ -75,3 +80,4 @@ abstract class MarketingServices {
     return respNew;
   }
 }
+

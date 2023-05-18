@@ -10,7 +10,7 @@ import '../utils/mydio.dart';
 
 abstract class AddOrderServices {
   static Future<ApiResp> fetchOrder({
-    required String instructions,
+//    required String instructions,
     required String longitude,
     required String visitpurpose ,
     required String latitude,
@@ -23,9 +23,9 @@ abstract class AddOrderServices {
     await errMAsync(
           () async {
         resp = await MyDio().customPost(
-          ApiPaths.shopregister,
+          ApiPaths.shopvisit,
           data: {
-            'instructions': instructions,
+        //    'instructions': instructions,
             'longitude': longitude,
             'visitpurpose ': 'sales' ,
             'latitude': latitude,

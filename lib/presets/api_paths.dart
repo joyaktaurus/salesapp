@@ -5,7 +5,8 @@ abstract class ApiPaths {
   static const update = 'update';
   static const shopregister = 'shop-register';
   static const shoplist = 'get-shop';
-
+  static const marketing = 'marketing';
+  static const shopvisit = 'shop-visit';
   static const uploadimage = 'https://demo.dm.instio.co/holidayInn/document/images';
 
   // static const imagePath = 'https://demo.dm.instio.co/holidayInn/document/images';
