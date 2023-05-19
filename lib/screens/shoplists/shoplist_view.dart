@@ -219,18 +219,16 @@ class ShopListView extends GetView<ShopListController> {
                                                           ),
                                                         ),
                                                       ),
-                                                      value: 1,
-                                                      groupValue: controller
-                                                          .selectedOption.value,
+                                                      value:  controller.isMarketingSelected.value,
+                                                      groupValue: true,
                                                       onChanged: (value) {
-                                                        controller
-                                                            .setSelectedOption(
-                                                                value!);
+                                                        Get.to(MarketingView(widgetId: 1,));
                                                         // Get.to(MarketingView(
                                                         //   widgetId: controller
                                                         //       .currentPage,
                                                         // ));
                                                       },
+                                                      activeColor: controller.marketingColor.value,
                                                     ),
                                                   ),
                                                 ),
@@ -266,18 +264,17 @@ class ShopListView extends GetView<ShopListController> {
                                                           ),
                                                         ),
                                                       ),
-                                                      value: 2,
-                                                      groupValue: controller
-                                                          .selectedOption.value,
+                                                      value:  controller.isSalesSelected.value,
+                                                      groupValue: true,
                                                       onChanged: (value) {
-                                                        controller
-                                                            .setSelectedOption(
-                                                                value!);
-                                                        // Get.to(AddOrderView(
+                                                        controller.submitSales();
+                                                       // Get.to(MarketingView(widgetId: 1,));
+                                                        // Get.to(MarketingView(
                                                         //   widgetId: controller
                                                         //       .currentPage,
                                                         // ));
                                                       },
+                                                     // activeColor: controller.marketingColor.value,
                                                     ),
                                                   ),
                                                 ),

@@ -17,7 +17,8 @@ abstract class MarketingServices {
     required String visitpurpose ,
     required String marketingnotes,
   //  required String shopname,
-    required String customername, required shopname,
+ //   required String customername,
+  //  required shopname,
   }) async {
     dynamic resp;
     await errMAsync(
@@ -29,8 +30,8 @@ abstract class MarketingServices {
             'visitdate': visitdate,
             'visitpurpose ': visitpurpose ,
             'marketingnotes': marketingnotes,
-             //   'shopname' : shopname,
-                'customername' : customername
+             // 'shopname' : shopname,
+             //   'customername' : customername
           },
         );
       },

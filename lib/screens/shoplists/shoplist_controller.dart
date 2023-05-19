@@ -11,6 +11,35 @@ import '../../services/shoplist_services.dart';
 class ShopListController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final ScrollController customersScrollController = ScrollController();
+  final RxBool isMarketingSelected = false.obs;
+  final RxBool isSalesSelected = false.obs;
+  var marketingColor = Colors.grey.obs;
+
+  void submitMarketing() {
+    // Perform your API request for marketing here
+
+    // Show snackbar message
+    Get.snackbar('Success', 'Marketing completed');
+
+    // Update radio button state and color
+    isMarketingSelected.value = true;
+    isSalesSelected.value = false;
+    marketingColor.value = Colors.red;
+  }
+
+
+  void submitSales() {
+    // Perform your API request for sales here
+
+    // Show snackbar message
+    Get.snackbar('Success', 'Sales completed');
+
+    // Update radio button state and color
+    isMarketingSelected.value = false;
+    isSalesSelected.value = true;
+    marketingColor.value = Colors.grey;
+  }
+
   final RxBool isVisible = false.obs;
   RxList<Shop> myList = (List<Shop>.of([])).obs;
   RxInt customersTotalCount = 0.obs;

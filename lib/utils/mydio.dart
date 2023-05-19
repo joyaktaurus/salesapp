@@ -68,10 +68,10 @@ class MyDio {
           data: data,
           options: Options(
             responseType: ResponseType.plain,
-            headers: {
-              Headers.contentTypeHeader: "application/json",
-              "Token": "${App.user.apiToken}"
-            }
+            // headers: {
+            //   Headers.contentTypeHeader: "application/json",
+            //   "Token": "${App.user.apiToken}"
+            // }
           ));
       debugPrint("!!!!!!!!!!!!!! Request Begin !!!!!!!!!!!!!!!!!!!!!");
       debugPrint(

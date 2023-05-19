@@ -1,26 +1,20 @@
 import 'dart:developer';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:intl/intl.dart';
-
+import 'package:salesapp/screens/shoplists/shoplist_controller.dart';
 import '../../app.dart';
 import '../../models/api_resp.dart';
-import '../../models/login_resp.dart';
 import '../../models/marketing_res.dart';
-import '../../models/shop_list.dart';
 import '../../services/marketing_services.dart';
-import '../../utils/my_utils.dart';
-import '../../utils/mydio.dart';
 
 class MarketingController extends GetxController {
-
+  final ShopListController _radioController = Get.find<ShopListController>();
   int shopid=0;
-  late DateTime  dateTime;
+  late DateTime dateTime;
   //String Date='';
   final TextEditingController cusnameCtrl = TextEditingController(text: '');
   final TextEditingController dateCtrl = TextEditingController(text: '');
@@ -38,16 +32,26 @@ class MarketingController extends GetxController {
       visitdate:DateTime.now().toString(),
       marketingnotes: notesCtrl.text,
       visitpurpose: 'marketing',
-      shopname: App.shopdetatils.first.shopName.toString(),
-      customername: App.shopdetatils.first.customerName.toString(),
+     // shopname: App.shopdetatils.first.shopName.toString(),
+   //   customername: App.shopdetatils.first.customerName.toString(),
     );
     if (resp.ok == false) {
      // MyUtils.msg(resp.msgs);
+      _radioController.isMarketingSelected.value = true;
+      _radioController.isSalesSelected.value = false;
+      _radioController.marketingColor.value = Colors.red;
+
       return;
     }
     MarketList marketList = MarketList.fromJson(resp.rdata);
     Get.snackbar('Marketing Successfully Completed', 'success', backgroundColor: Colors.white);
     if (marketList.message == 'Marketing Successfully Completed') {
+
+      // _radioController.isMarketingSelected.value = true;
+      // _radioController.isSalesSelected.value = false;
+      // _radioController.marketingColor.value = Colors.red;
+
+
       //shopnid.clear();
       cusnameCtrl.clear();
       notesCtrl.clear();

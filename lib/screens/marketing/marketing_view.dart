@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 import 'package:salesapp/components/app_boxes.dart';
 import 'package:salesapp/screens/addproduct/addproduct_view.dart';
 import '../../app.dart';
@@ -19,6 +20,7 @@ class MarketingView extends GetView<MarketingController> {
  MarketingView({Key? key,required this.widgetId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final ShopListController _radioController = Get.find<ShopListController>();
     Get.put(MarketingController());
     controller.shopid =int.parse(App.shopdetatils[widgetId].intShopId!);
       return GestureDetector(
@@ -128,16 +130,19 @@ class MarketingView extends GetView<MarketingController> {
                                   children: [
                                     IconButton(
                                         onPressed: () {
+
                                           controller.choosestartDate();
                                         },
                                         icon: Icon(Icons.calendar_month,
                                             color: MyTheme.myBlueDark)),
                                   //  SizedBox(width: Get.width * .05),
                                     Obx( () =>
-                                     Text( controller.selectedDate.value,
+                                     Text(
+                                         controller.selectedDate.value,
                                           style: MyTheme.regularTextStyle(
                                               fontSize: Get.height * .014,
-                                              color: Colors.black)),
+                                              color: Colors.black)
+                                     ),
                                     ),
                                   ],
                                 ),
