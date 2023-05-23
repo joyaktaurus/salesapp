@@ -10,28 +10,29 @@ import '../utils/mydio.dart';
 
 abstract class AddOrderServices {
   static Future<ApiResp> fetchOrder({
-//    required String instructions,
     required String longitude,
-    required String visitpurpose ,
+    required String visitpurpose,
     required String latitude,
     required String product_details,
-    required String shopid,
+    required int shopid,
     required String orderdate,
-
+    required String instructions,
+    // required List<Map<String, dynamic>> orderItems, // Add this parameter
   }) async {
     dynamic resp;
     await errMAsync(
           () async {
-        resp = await MyDio().customPost(
+        resp = await MyDio().salesPost(
           ApiPaths.shopvisit,
-          data: {
-        //    'instructions': instructions,
+          queryParameters: {
+            'instructions': instructions,
             'longitude': longitude,
-            'visitpurpose ': 'sales' ,
+            'visitpurpose': visitpurpose,
             'latitude': latitude,
             'product_details': product_details,
             'shopid': shopid,
             'orderdate': orderdate,
+            // 'orderItems': orderItems, // Include the order items in the request body
           },
         );
       },

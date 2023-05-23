@@ -68,10 +68,10 @@ class MyDio {
           data: data,
           options: Options(
             responseType: ResponseType.plain,
-            // headers: {
-            //   Headers.contentTypeHeader: "application/json",
-            //   "Token": "${App.user.apiToken}"
-            // }
+            headers: {
+              Headers.contentTypeHeader: "application/json",
+              "Token": "${App.user.apiToken}"
+            }
           ));
       debugPrint("!!!!!!!!!!!!!! Request Begin !!!!!!!!!!!!!!!!!!!!!");
       debugPrint(
@@ -115,6 +115,149 @@ class MyDio {
       }
     }
   }
+
+  Future<dynamic> markPost(
+      String path, {
+        data,
+        Map<String, dynamic>? queryParameters,
+        Options? options,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceivedProgress,
+      }) async {
+    try {
+      // Dio dio = Dio();
+      // (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+      //     (HttpClient client) {
+      //   client.badCertificateCallback =
+      //       (X509Certificate cert, String host, int port) => true;
+      //   return null;
+      // };
+
+      Response resp = await _dio.post(baseUrl + path,
+          data: data,
+          queryParameters: queryParameters,
+          options: Options(
+              responseType: ResponseType.plain,
+              headers: {
+                Headers.contentTypeHeader: "application/json",
+                "Token": "${App.user.apiToken}"
+              }
+          ));
+      debugPrint("!!!!!!!!!!!!!! Request Begin !!!!!!!!!!!!!!!!!!!!!");
+      debugPrint(
+          "REQUEST[${resp.statusCode}] => PATH: ${resp.requestOptions.path}");
+      debugPrint("ResMethodType : [${resp.requestOptions.method}]");
+      resp.requestOptions.headers.forEach((k, v) => debugPrint('$k: $v'));
+
+      debugPrint("QueryParameters:");
+      resp.requestOptions.queryParameters
+          .forEach((k, v) => debugPrint('$k: $v'));
+      debugPrint(resp.requestOptions.queryParameters.toString());
+
+      if (resp.requestOptions.data != null) {
+        debugPrint("Body: ${jsonEncode(resp.requestOptions.data)}");
+      }
+      log('resp >>>${resp.data}');
+      debugPrint("************** Response End ************************");
+      dynamic apiResp = jsonDecode(resp.data);
+      return apiResp;
+    } on DioError catch (ex) {
+      // nav.Get.to(MAErrorScreenWidget(onRetry: () {}));
+      debugPrint("!!!!!!!!!!!!!! Error Begin !!!!!!!!!!!!!!!!!!!!!");
+      debugPrint(
+          "REQUEST[${ex.response?.statusCode}] => PATH: ${ex.requestOptions.path}");
+      debugPrint("ResMethodType : [${ex.requestOptions.method}]");
+      ex.requestOptions.headers.forEach((k, v) => debugPrint('$k: $v'));
+
+      debugPrint("QueryParameters:");
+      ex.requestOptions.queryParameters.forEach((k, v) => debugPrint('$k: $v'));
+      debugPrint(ex.requestOptions.queryParameters.toString());
+
+      if (ex.requestOptions.data != null) {
+        debugPrint("Body: ${jsonEncode(ex.requestOptions.data)}");
+      }
+      log('error type >>>${ex.type}');
+      debugPrint("************** Error End ************************");
+      if (ex.type == DioErrorType.connectTimeout) {
+        throw Exception(ex.message);
+      } else {
+        return ex;
+      }
+    }
+  }
+
+  Future<dynamic> salesPost(
+      String path, {
+        data,
+        Map<String, dynamic>? queryParameters,
+        Options? options,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceivedProgress,
+      }) async {
+    try {
+      // Dio dio = Dio();
+      // (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+      //     (HttpClient client) {
+      //   client.badCertificateCallback =
+      //       (X509Certificate cert, String host, int port) => true;
+      //   return null;
+      // };
+
+      Response resp = await _dio.post(baseUrl + path,
+          data: data,
+          queryParameters: queryParameters,
+          options: Options(
+              responseType: ResponseType.plain,
+              headers: {
+                Headers.contentTypeHeader: "application/json",
+                "Token": "${App.user.apiToken}"
+              }
+          ));
+      debugPrint("!!!!!!!!!!!!!! Request Begin !!!!!!!!!!!!!!!!!!!!!");
+      debugPrint(
+          "REQUEST[${resp.statusCode}] => PATH: ${resp.requestOptions.path}");
+      debugPrint("ResMethodType : [${resp.requestOptions.method}]");
+      resp.requestOptions.headers.forEach((k, v) => debugPrint('$k: $v'));
+
+      debugPrint("QueryParameters:");
+      resp.requestOptions.queryParameters
+          .forEach((k, v) => debugPrint('$k: $v'));
+      debugPrint(resp.requestOptions.queryParameters.toString());
+
+      if (resp.requestOptions.data != null) {
+        debugPrint("Body: ${jsonEncode(resp.requestOptions.data)}");
+      }
+      log('resp >>>${resp.data}');
+      debugPrint("************** Response End ************************");
+      dynamic apiResp = jsonDecode(resp.data);
+      return apiResp;
+    } on DioError catch (ex) {
+      // nav.Get.to(MAErrorScreenWidget(onRetry: () {}));
+      debugPrint("!!!!!!!!!!!!!! Error Begin !!!!!!!!!!!!!!!!!!!!!");
+      debugPrint(
+          "REQUEST[${ex.response?.statusCode}] => PATH: ${ex.requestOptions.path}");
+      debugPrint("ResMethodType : [${ex.requestOptions.method}]");
+      ex.requestOptions.headers.forEach((k, v) => debugPrint('$k: $v'));
+
+      debugPrint("QueryParameters:");
+      ex.requestOptions.queryParameters.forEach((k, v) => debugPrint('$k: $v'));
+      debugPrint(ex.requestOptions.queryParameters.toString());
+
+      if (ex.requestOptions.data != null) {
+        debugPrint("Body: ${jsonEncode(ex.requestOptions.data)}");
+      }
+      log('error type >>>${ex.type}');
+      debugPrint("************** Error End ************************");
+      if (ex.type == DioErrorType.connectTimeout) {
+        throw Exception(ex.message);
+      } else {
+        return ex;
+      }
+    }
+  }
+
 
   Future<dynamic> customPatch(
       String path, {

@@ -16,23 +16,18 @@ abstract class MarketingServices {
     required String visitdate,
     required String visitpurpose ,
     required String marketingnotes,
-  //  required String shopname,
- //   required String customername,
-  //  required shopname,
   }) async {
     dynamic resp;
     await errMAsync(
           () async {
-            resp = await MyDio().customPost(
+            resp = await MyDio().markPost(
               ApiPaths.marketing,
-              data: {
-            'shopid': shopid,
-            'visitdate': visitdate,
-            'visitpurpose ': visitpurpose ,
-            'marketingnotes': marketingnotes,
-             // 'shopname' : shopname,
-             //   'customername' : customername
-          },
+              queryParameters: {
+                'shopid': shopid,
+                'visitdate': visitdate,
+                'visitpurpose': visitpurpose,
+                'marketingnotes': marketingnotes,
+              },
         );
       },
     //  title: 'Marketing Failed',

@@ -219,14 +219,14 @@ class ShopListView extends GetView<ShopListController> {
                                                           ),
                                                         ),
                                                       ),
-                                                      value:  controller.isMarketingSelected.value,
+                                                      value: controller.isMarketingSelected.value,
                                                       groupValue: true,
                                                       onChanged: (value) {
-                                                        Get.to(MarketingView(widgetId: 1,));
-                                                        // Get.to(MarketingView(
-                                                        //   widgetId: controller
-                                                        //       .currentPage,
-                                                        // ));
+                                                        Get.to(MarketingView(widgetId: 1,))?.then((value) {
+                                                          if (value == true) {
+                                                            controller.submitMarketing();
+                                                          }
+                                                        });
                                                       },
                                                       activeColor: controller.marketingColor.value,
                                                     ),

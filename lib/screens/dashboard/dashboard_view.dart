@@ -37,7 +37,7 @@ class DashBoardView extends GetView<DashboardViewController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding:  EdgeInsets.only(left: 100, top: 5),
+                  padding:  EdgeInsets.only(left: 50, top: 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -197,6 +197,23 @@ class DashBoardView extends GetView<DashboardViewController> {
                   style: MyTheme.regularTextStyle(
                     fontWeight: FontWeight.w600,
                       fontSize: Get.height * .027, color: MyTheme.whiteColor),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Employee ID : ",
+                      style: MyTheme.regularTextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: Get.height * .020, color: MyTheme.whiteColor),
+                    ),
+                    Text(
+                      "${App.user.userId}",
+                      style: MyTheme.regularTextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: Get.height * .020, color: MyTheme.whiteColor),
+                    ),
+                  ],
                 ),
               ],
             ),

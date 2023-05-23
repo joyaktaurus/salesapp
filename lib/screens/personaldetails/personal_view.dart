@@ -219,15 +219,11 @@ void MarkCleanAlert(BuildContext context) {
                 ),
                 SizedBox(height: Get.height * .03),
                 TextFormField(
-                  // controller: controller.userCtrl,
-                  // focusNode: controller.userCtrlfocusNode,
                   decoration: textBoxDecoration('Email'),
                   textInputAction: TextInputAction.next,
                 ),
                 SizedBox(height: Get.height * .03),
                 TextFormField(
-                  // controller: controller.userCtrl,
-                  // focusNode: controller.userCtrlfocusNode,
                   decoration: textBoxDecoration('Mobile Number'),
                   textInputAction: TextInputAction.next,
                 ),

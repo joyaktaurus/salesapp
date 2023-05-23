@@ -9,23 +9,16 @@ class PersonalController extends GetxController {
   var phone = ''.obs;
   var isLoading = false.obs;
 
-  void updateProfile() async {
-    isLoading.value = true;
-    try {
-      var dio = Dio();
-      var response = await dio.put(
-        'https://seowebdesign.in/Sales_Executive/api/v1/update',
-        data: {
-          'email': email.value,
-          'phone': phone.value,
-        },
-      );
-      // Handle the response as needed, e.g. show a success message
-    } catch (e) {
-      // Handle errors, e.g. show an error message
-    } finally {
-      isLoading.value = false;
-    }
+  void updateProfile(String newEmail, newPhone) {
+    // Make API call to update address information
+    // Assuming you are using Dio for API requests
+
+    // Simulating API call delay
+    Future.delayed(Duration(seconds: 2), () {
+      // Update the address variable with the new address value
+      email.value = newEmail;
+      phone.value = newPhone;
+    });
   }
 
 }

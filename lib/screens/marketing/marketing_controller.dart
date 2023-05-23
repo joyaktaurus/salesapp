@@ -12,7 +12,7 @@ import '../../models/marketing_res.dart';
 import '../../services/marketing_services.dart';
 
 class MarketingController extends GetxController {
-  final ShopListController _radioController = Get.find<ShopListController>();
+  final ShopListController radioController = Get.find<ShopListController>();
   int shopid=0;
   late DateTime dateTime;
   //String Date='';
@@ -36,21 +36,21 @@ class MarketingController extends GetxController {
    //   customername: App.shopdetatils.first.customerName.toString(),
     );
     if (resp.ok == false) {
-     // MyUtils.msg(resp.msgs);
-      _radioController.isMarketingSelected.value = true;
-      _radioController.isSalesSelected.value = false;
-      _radioController.marketingColor.value = Colors.red;
 
       return;
     }
     MarketList marketList = MarketList.fromJson(resp.rdata);
+
     Get.snackbar('Marketing Successfully Completed', 'success', backgroundColor: Colors.white);
     if (marketList.message == 'Marketing Successfully Completed') {
+      radioController.submitMarketing();
 
-      // _radioController.isMarketingSelected.value = true;
-      // _radioController.isSalesSelected.value = false;
-      // _radioController.marketingColor.value = Colors.red;
+      // Navigate back to the previous screen
+      Get.back(result: true);
 
+      // radioController.isMarketingSelected.value = true;
+      // radioController.isSalesSelected.value = false;
+      // radioController.marketingColor.value = Colors.red;
 
       //shopnid.clear();
       cusnameCtrl.clear();

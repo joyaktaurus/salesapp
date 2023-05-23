@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:salesapp/components/app_boxes.dart';
 import 'package:salesapp/screens/addproduct/addproduct_view.dart';
 import '../../app.dart';
+import '../../components/app_alertbox.dart';
 import '../../components/app_body_view.dart';
 import '../../components/app_buttons.dart';
 import '../../my_theme.dart';
@@ -15,11 +16,13 @@ import 'addorder_controller.dart';
 
 class AddOrderView extends GetView<AddOrderController> {
   final widgetId;
-   AddOrderView({Key? key,required this.widgetId}) : super(key: key);
+
+  AddOrderView({Key? key, required this.widgetId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Get.put(AddOrderController());
+    controller.shopid = int.parse(App.shopdetatils[widgetId].intShopId!);
     return GestureDetector(
         onTap: () {
           MyUtils.hideKeyboard();
@@ -75,13 +78,15 @@ class AddOrderView extends GetView<AddOrderController> {
                                   ),
                                   SizedBox(width: Get.width * .03),
                                   Padding(
-                                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                                    padding:
+                                        EdgeInsets.only(top: 20, bottom: 20),
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          App.shopdetatils[widgetId].shopName!.toUpperCase(),
+                                          App.shopdetatils[widgetId].shopName!
+                                              .toUpperCase(),
                                           style: MyTheme.regularTextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: MyTheme.myBlueDark,
@@ -89,7 +94,8 @@ class AddOrderView extends GetView<AddOrderController> {
                                           ),
                                         ),
                                         Text(
-                                          App.shopdetatils[widgetId].customerName!,
+                                          App.shopdetatils[widgetId]
+                                              .customerName!,
                                           style: MyTheme.regularTextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.grey,
@@ -135,11 +141,12 @@ class AddOrderView extends GetView<AddOrderController> {
                                           icon: Icon(Icons.calendar_month,
                                               color: MyTheme.myBlueDark)),
                                       //  SizedBox(width: Get.width * .05),
-                                      Obx( () =>
-                                          Text( controller.selectedDate.value,
-                                              style: MyTheme.regularTextStyle(
-                                                  fontSize: Get.height * .014,
-                                                  color: Colors.black)),
+                                      Obx(
+                                        () => Text(
+                                            controller.selectedDate.value,
+                                            style: MyTheme.regularTextStyle(
+                                                fontSize: Get.height * .014,
+                                                color: Colors.black)),
                                       ),
                                     ],
                                   ),
@@ -206,34 +213,62 @@ class AddOrderView extends GetView<AddOrderController> {
                             //   ),
                             // ),
                             Container(
-                              width: Get.width * .9,
-                              height: Get.height * .17,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(45),
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: Offset.zero,
-                                    color: Colors.grey.shade300,
-                                    blurStyle: BlurStyle.outer,
-                                    blurRadius: 10,
-                                  ),
-                                ],
-                              ),
-                              child: TextFormField(
-                                controller: controller.addproductCtrl,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding: const EdgeInsets.only(left: 20, top: 10),
-                                  labelText: 'Add Products',
-                                  labelStyle: MyTheme.regularTextStyle(
-                                    fontSize: Get.height * 0.014,
-                                    color: Colors.black,
-
-                                  ),
+                                width: Get.width * .9,
+                                height: Get.height * .23,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(45),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset.zero,
+                                      color: Colors.grey.shade300,
+                                      blurStyle: BlurStyle.outer,
+                                      blurRadius: 10,
+                                    ),
+                                  ],
                                 ),
-                              ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Text("Add Products"),
+                                      SizedBox(height: Get.height * .02),
+                                      TextFormField(
+                                        controller: controller.nameCtrl,
+                                        focusNode: controller.nameCtrlfNode,
+                                        decoration: productBoxDecoration('Name'),
+                                        textInputAction: TextInputAction.next,
+                                      ),
+                                      SizedBox(height: Get.height * .01),
+                                      TextFormField(
+                                        controller: controller.qntyCtrl,
+                                        focusNode: controller.qntyCtrlfNode,
+                                        decoration: productBoxDecoration('Quantity'),
+                                        textInputAction: TextInputAction.next,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                                // TextFormField(
+                                //   controller: controller.addproductCtrl,
+                                //   decoration: InputDecoration(
+                                //     border: InputBorder.none,
+                                //     filled: true,
+                                //     fillColor: Colors.white,
+                                //     contentPadding: const EdgeInsets.only(left: 20, top: 10),
+                                //     labelText: 'Add Products',
+                                //     labelStyle: MyTheme.regularTextStyle(
+                                //       fontSize: Get.height * 0.014,
+                                //       color: Colors.black,
+                                //
+                                //     ),
+                                //   ),
+                                // ),
+                                ),
+                            TextFormField(
+                              controller: controller.insCtrl,
+                              focusNode: controller.insCtrlfNode,
+                              decoration: productBoxDecoration('Instructions'),
+                              textInputAction: TextInputAction.next,
                             ),
                             SizedBox(height: Get.height * .01),
                             ProfileRows("Sub Total : ", ""),
@@ -248,33 +283,15 @@ class AddOrderView extends GetView<AddOrderController> {
                             MAButton(
                               text: 'Submit',
                               buttonPress: () {
-                                errM(() {
-                                  final AddOrderController marketingController = Get.find<AddOrderController>();
-                                  final String shopid = App.shopdetatils[widgetId].shopName.toString();
-                                  final String customername = App.shopdetatils[widgetId].customerName.toString();
-                                  final String orderdate = controller.selectedDate.value;
-                                  final String product_details = controller.addproductCtrl.text;
-                                  final String visitpurpose = 'sales';
-                                  final String longitude = 'longitude';
-                                  final String latitude = 'latitude';// Set the visit purpose
-
-                                  marketingController.submitMarketingData(shopid: '',
-                                      customername: customername,
-                                      longitude: longitude,
-                                      visitpurpose: visitpurpose,
-                                      latitude: latitude,
-                                      product_details:product_details,
-                                      orderdate: orderdate
-
-                                  );
-                                });
+                                errM(() => controller.submitButtonPressed());
                               },
                               isEnabled: true,
                               padding: const EdgeInsets.all(30),
                               height: Get.height * 0.07,
                               width: Get.width * 0.4,
                               clipBehavior: 0,
-                              radius: 30, fontSize: 20,
+                              radius: 30,
+                              fontSize: 20,
                             ),
                           ],
                         ),
@@ -308,4 +325,14 @@ class AddOrderView extends GetView<AddOrderController> {
       ),
     );
   }
+}
+InputDecoration productBoxDecoration(hintText) {
+  return InputDecoration(
+    hintText: hintText,
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.black),
+    ),
+    hintStyle: MyTheme.regularTextStyle(
+        fontSize: Get.height * .014, color: Colors.black),
+  );
 }
