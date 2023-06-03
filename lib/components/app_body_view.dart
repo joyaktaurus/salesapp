@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:salesapp/utils/asset_helper.dart';
 import '../my_theme.dart';
 
 class BodyView extends StatelessWidget {
@@ -8,13 +9,15 @@ class BodyView extends StatelessWidget {
   final double? height;
   final Color? color;
   final Widget? child;
+  final String? imagePath;
 
   const BodyView({
     Key? key,
     this.width,
     this.height,
-     this.color,
-     this.child,
+    this.color,
+    this.child,
+    this.imagePath,
   }) : super(key: key);
 
   @override
@@ -61,6 +64,9 @@ class BodyView extends StatelessWidget {
                   border: Border.all(
                     width: Get.width * .006,
                     color: MyTheme.whiteColor,
+                  ),
+                  image: DecorationImage(
+                    image: AssetImage(imagePath!),
                   ),
                 ),
                 child: child,

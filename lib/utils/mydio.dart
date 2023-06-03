@@ -56,23 +56,17 @@ class MyDio {
         ProgressCallback? onReceivedProgress,
       }) async {
     try {
-      // Dio dio = Dio();
-      // (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-      //     (HttpClient client) {
-      //   client.badCertificateCallback =
-      //       (X509Certificate cert, String host, int port) => true;
-      //   return null;
-      // };
-
-      Response resp = await _dio.post(baseUrl + path,
-          data: data,
-          options: Options(
-            responseType: ResponseType.plain,
-            headers: {
-              Headers.contentTypeHeader: "application/json",
-              "Token": "${App.user.apiToken}"
-            }
-          ));
+      Response resp = await _dio.post(
+        baseUrl + path,
+        data: data,
+        options: Options(
+          responseType: ResponseType.plain,
+          headers: {
+            Headers.contentTypeHeader: "application/json",
+            "Token": "${App.user.apiToken}"
+          },
+        ),
+      );
       debugPrint("!!!!!!!!!!!!!! Request Begin !!!!!!!!!!!!!!!!!!!!!");
       debugPrint(
           "REQUEST[${resp.statusCode}] => PATH: ${resp.requestOptions.path}");
@@ -487,8 +481,13 @@ class MyDio {
       }) async {
     try {
       Response resp = await _dio.get(baseUrl + path,
+          queryParameters: queryParameters,
           options: Options(
-            responseType: ResponseType.plain,
+              responseType: ResponseType.plain,
+              headers: {
+                Headers.contentTypeHeader: "application/json",
+                "Token": "${App.user.apiToken}"
+              }
           ));
       debugPrint("!!!!!!!!!!!!!! Request Begin !!!!!!!!!!!!!!!!!!!!!");
       debugPrint(

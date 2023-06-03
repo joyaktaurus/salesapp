@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../app.dart';
 import '../my_theme.dart';
 import '../routes.dart';
+import '../screens/addproduct/addproduct_view.dart';
 import '../utils/asset_helper.dart';
 import 'app_buttons.dart';
 
@@ -162,29 +163,5 @@ InputDecoration textBoxDecoration(hintText) {
     ),
     hintStyle: MyTheme.regularTextStyle(
         fontSize: Get.height * .018, color: Colors.black),
-  );
-}
-Padding ProfileRows(String text, text1) {
-  return Padding(
-    padding: EdgeInsets.only(left: 10, right: 10, bottom: 5),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          text,
-          style: MyTheme.regularTextStyle(
-              fontSize: Get.height * .016,
-              color: Colors.black,
-              fontWeight: FontWeight.w400),
-        ),
-        Text(
-          text1,
-          style: MyTheme.regularTextStyle(
-              fontSize: Get.height * .016,
-              color: Colors.black,
-              fontWeight: FontWeight.w400),
-        ),
-      ],
-    ),
   );
 }

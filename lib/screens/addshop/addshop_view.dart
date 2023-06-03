@@ -27,13 +27,14 @@ class AddShopView extends GetView<AddShopController> {
             backgroundColor: Colors.grey[200],
             body: Stack(children: [
               BodyView(
-                color: Colors.grey[300],
+                color: Colors.white,
+                imagePath: AssetHelper.addShopImage,
                 width: Get.width * .200,
                 height: Get.height * .250,
-                child: Image.asset(
-                  AssetHelper.addShopImage,
-                  color: MyTheme.myBlueDark,
-                ),
+                // child: Image.asset(
+                //   AssetHelper.addShopImage,
+                //   color: MyTheme.myBlueDark,
+                // ),
               ),
               Padding(
                 padding: EdgeInsets.only(top: Get.height * .220),

@@ -5,6 +5,7 @@ import 'package:salesapp/components/app_boxes.dart';
 import 'package:salesapp/screens/addproduct/addproduct_view.dart';
 import '../../app.dart';
 import '../../components/app_alertbox.dart';
+import '../../components/app_blank_body.dart';
 import '../../components/app_body_view.dart';
 import '../../components/app_buttons.dart';
 import '../../my_theme.dart';
@@ -12,6 +13,8 @@ import '../../routes.dart';
 import '../../utils/asset_helper.dart';
 import '../../utils/err_m.dart';
 import '../../utils/my_utils.dart';
+import '../itemlist/itemlist_view.dart';
+import '../shoplists/shoplist_controller.dart';
 import 'addorder_controller.dart';
 
 class AddOrderView extends GetView<AddOrderController> {
@@ -30,7 +33,7 @@ class AddOrderView extends GetView<AddOrderController> {
         child: Scaffold(
             backgroundColor: Colors.grey[200],
             body: Stack(children: [
-              BodyView(),
+              BodyViewTop(),
               Padding(
                 padding: EdgeInsets.only(top: Get.height * .163),
                 child: Row(
@@ -53,7 +56,7 @@ class AddOrderView extends GetView<AddOrderController> {
                     width: Get.width * .9,
                     height: Get.height * .9,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      padding: EdgeInsets.only(left: 10, right: 10),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -154,67 +157,9 @@ class AddOrderView extends GetView<AddOrderController> {
                               ),
                             ),
                             SizedBox(height: Get.height * .020),
-                            // Container(
-                            //   width: Get.width * .9,
-                            //   height: Get.height * .27,
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(45),
-                            //     boxShadow: [
-                            //       BoxShadow(
-                            //         color: Colors.black.withOpacity(0.1),
-                            //         spreadRadius: 3,
-                            //         blurRadius: 8,
-                            //         offset: Offset(
-                            //             2, 0), // changes position of shadow
-                            //       )
-                            //     ],
-                            //     color: Colors.white,
-                            //   ),
-                            //   child: Padding(
-                            //     padding:
-                            //     EdgeInsets.only(left: 20, right: 20, top: 20),
-                            //     child: Column(
-                            //       crossAxisAlignment: CrossAxisAlignment.start,
-                            //       children: [
-                            //         Text("Products",
-                            //             style: MyTheme.regularTextStyle(
-                            //                 fontSize: Get.height * .014,
-                            //                 color: Colors.black)),
-                            //         SizedBox(height: Get.height * .07),
-                            //         Row(
-                            //           mainAxisAlignment: MainAxisAlignment.start,
-                            //           children: [
-                            //             Icon(
-                            //               Icons.add,
-                            //               color: Colors.grey,
-                            //             ),
-                            //             SizedBox(width: Get.width * .05),
-                            //             Text("Empty! Click here to add products",
-                            //                 style: MyTheme.regularTextStyle(
-                            //                     fontSize: Get.height * .014,
-                            //                     color: Colors.grey)),
-                            //           ],
-                            //         ),
-                            //         SizedBox(height: Get.height * .05),
-                            //         Padding(
-                            //           padding: EdgeInsets.only(left: 260),
-                            //           child: CircleAvatar(
-                            //             radius: 20,
-                            //             child: IconButton(
-                            //               onPressed: () {
-                            //                 Get.to(AddProductView());
-                            //               },
-                            //               icon: Icon(Icons.add),
-                            //             ),
-                            //           ),
-                            //         )
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
                             Container(
                                 width: Get.width * .9,
-                                height: Get.height * .23,
+                                height: Get.height * .30,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(45),
                                   boxShadow: [
@@ -227,59 +172,132 @@ class AddOrderView extends GetView<AddOrderController> {
                                   ],
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Column(children: [
                                       Text("Add Products"),
                                       SizedBox(height: Get.height * .02),
-                                      TextFormField(
-                                        controller: controller.nameCtrl,
-                                        focusNode: controller.nameCtrlfNode,
-                                        decoration: productBoxDecoration('Name'),
-                                        textInputAction: TextInputAction.next,
-                                      ),
-                                      SizedBox(height: Get.height * .01),
-                                      TextFormField(
-                                        controller: controller.qntyCtrl,
-                                        focusNode: controller.qntyCtrlfNode,
-                                        decoration: productBoxDecoration('Quantity'),
-                                        textInputAction: TextInputAction.next,
-                                      ),
-                                    ],
+                                      Wrap(
+                                        children: [
+                                            Container(
+                                              width: Get.width * .2,
+                                              height: Get.height * .099,
+                                              child: TextFormField(
+                                                controller: controller.nameCtrl,
+                                                decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  filled: true,
+                                                  fillColor: Colors.white,
+                                                  contentPadding:
+                                                       EdgeInsets.only(
+                                                           top: 10),
+                                                  labelText: 'Name',
+                                                  labelStyle:
+                                                      MyTheme.regularTextStyle(
+                                                    fontSize: Get.height * 0.014,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          SizedBox(width: Get.width * .1),
+                                            Container(
+                                              width: Get.width * .2,
+                                              height: Get.height * .09,
+                                              child: TextFormField(
+                                                controller: controller.qntyCtrl,
+                                                decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  filled: true,
+                                                  fillColor: Colors.white,
+                                                  contentPadding:
+                                                       EdgeInsets.only(
+                                                          top: 10),
+                                                  labelText: 'Quantity',
+                                                  labelStyle:
+                                                      MyTheme.regularTextStyle(
+                                                    fontSize: Get.height * 0.014,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          SizedBox(width: Get.width * .1),
+                                            Container(
+                                              width: Get.width * .2,
+                                              height: Get.height * .09,
+                                              child: TextFormField(
+                                              //  controller: controller.qntyCtrl,
+                                                decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  filled: true,
+                                                  fillColor: Colors.white,
+                                                  contentPadding:
+                                                   EdgeInsets.only(
+                                                       top: 10),
+                                                  labelText: 'Price',
+                                                  labelStyle:
+                                                  MyTheme.regularTextStyle(
+                                                    fontSize: Get.height * 0.014,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                        ),
+                                     ] ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 260, top: Get.height * .07),
+                                        child: CircleAvatar(
+                                          radius: 20,
+                                          child: IconButton(
+                                            onPressed: () {
+                                             // Get.to(ItemListView());
+                                            },
+                                            icon: Icon(Icons.add),
+                                          ),
+                                        ),
+                                      )
+                                    ]))),
+                            SizedBox(height: Get.height * .02),
+                            Container(
+                              width: Get.width * .9,
+                              height: Get.height * .09,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(45),
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset.zero,
+                                    color: Colors.grey.shade300,
+                                    blurStyle: BlurStyle.outer,
+                                    blurRadius: 10,
                                   ),
-                                )
-                                // TextFormField(
-                                //   controller: controller.addproductCtrl,
-                                //   decoration: InputDecoration(
-                                //     border: InputBorder.none,
-                                //     filled: true,
-                                //     fillColor: Colors.white,
-                                //     contentPadding: const EdgeInsets.only(left: 20, top: 10),
-                                //     labelText: 'Add Products',
-                                //     labelStyle: MyTheme.regularTextStyle(
-                                //       fontSize: Get.height * 0.014,
-                                //       color: Colors.black,
-                                //
-                                //     ),
-                                //   ),
-                                // ),
+                                ],
+                              ),
+                              child: TextFormField(
+                                controller: controller.insCtrl,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding:
+                                      const EdgeInsets.only(left: 20, top: 10),
+                                  labelText: 'Order Notes',
+                                  labelStyle: MyTheme.regularTextStyle(
+                                    fontSize: Get.height * 0.014,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                            TextFormField(
-                              controller: controller.insCtrl,
-                              focusNode: controller.insCtrlfNode,
-                              decoration: productBoxDecoration('Instructions'),
-                              textInputAction: TextInputAction.next,
+                              ),
                             ),
-                            SizedBox(height: Get.height * .01),
+                            SizedBox(height: Get.height * .03),
                             ProfileRows("Sub Total : ", ""),
-                            ProfileRows("Tax Implied : ", ""),
-                            SizedBox(height: Get.height * .01),
-                            ProfileRows("Grand Total : ", ""),
-                            ProfileRows("Credits Applied : ", ""),
-                            ProfileRows("Balance Due : ", ""),
-                            SizedBox(height: Get.height * .01),
+                            // ProfileRows("Tax Implied : ", ""),
+                            // SizedBox(height: Get.height * .01),
+                            // ProfileRows("Grand Total : ", ""),
+                            // ProfileRows("Credits Applied : ", ""),
+                            // ProfileRows("Balance Due : ", ""),
+                            // SizedBox(height: Get.height * .01),
                             Divider(thickness: 1),
-                            SizedBox(height: Get.height * .0001),
+                            SizedBox(height: Get.height * .01),
                             MAButton(
                               text: 'Submit',
                               buttonPress: () {
@@ -326,6 +344,7 @@ class AddOrderView extends GetView<AddOrderController> {
     );
   }
 }
+
 InputDecoration productBoxDecoration(hintText) {
   return InputDecoration(
     hintText: hintText,
@@ -335,4 +354,72 @@ InputDecoration productBoxDecoration(hintText) {
     hintStyle: MyTheme.regularTextStyle(
         fontSize: Get.height * .014, color: Colors.black),
   );
+}
+void AddToList(BuildContext context) {
+  showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20)),
+          title: Container(
+            width: Get.width * .9,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(Icons.close,
+                            color: MyTheme.myBlueDark, size: 15))
+                  ],
+                ),
+                ProfileRows("Name  :   ", "Pen"),
+                Divider(thickness: 1),
+                ProfileRows("Price  :   ", "100.00"),
+                Divider(thickness: 1),
+                ProfileRows("Quantity  :   ", "10"),
+                SizedBox(height: Get.height * .01),
+                Divider(thickness: 1),
+                SizedBox(height: Get.height * .01),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        ProductShow(context);
+                      },
+                      child: Container(
+                        height: Get.height * 0.05,
+                        width: Get.width * 0.2,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.circular(15),
+                            color: MyTheme.myBlueDark),
+                        child: Center(
+                          child: Text(
+                            "ADD",
+                            style: MyTheme.regularTextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: MyTheme.whiteColor,
+                              fontSize: Get.height * .018,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+
+              ],
+            ),
+          ),
+        );
+      });
 }

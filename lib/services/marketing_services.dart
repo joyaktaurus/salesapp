@@ -16,6 +16,8 @@ abstract class MarketingServices {
     required String visitdate,
     required String visitpurpose ,
     required String marketingnotes,
+    required String longitude,
+    required String latitude,
   }) async {
     dynamic resp;
     await errMAsync(
@@ -27,6 +29,8 @@ abstract class MarketingServices {
                 'visitdate': visitdate,
                 'visitpurpose': visitpurpose,
                 'marketingnotes': marketingnotes,
+                'longitude': longitude,
+                'latitude': latitude,
               },
         );
       },

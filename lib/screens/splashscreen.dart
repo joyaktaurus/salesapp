@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:salesapp/my_theme.dart';
 import 'package:salesapp/utils/asset_helper.dart';
 import '../app.dart';
+import '../models/login_resp.dart';
 import '../routes.dart';
 import '../utils/err_m.dart';
 import '../utils/local_store.dart';
@@ -15,7 +16,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -67,7 +67,6 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-
   Future<void> checkAlreadyLogged() async {
     Future.delayed(
       const Duration(milliseconds: 1400),
@@ -80,5 +79,47 @@ class _SplashScreenState extends State<SplashScreen> {
       },
     );
   }
+
+// Future<void> checkAlreadyLogged() async {
+//     await Future.delayed(const Duration(milliseconds: 1400));
+//
+//     bool isLoggedIn = LocalStore.getData('isLoggedIn') ?? false;
+//     String employeeId = LocalStore.getData('employeeId') ?? '';
+//
+//     if (isLoggedIn && employeeId.isNotEmpty) {
+//       // Retrieve the employee details from local storage
+//       String userId = LocalStore.getData('user_id') ?? '';
+//       String token = LocalStore.getData('token') ?? '';
+//       String name = LocalStore.getData('name') ?? '';
+//       String employeeId = LocalStore.getData('employeeId') ?? '';
+//       String email = LocalStore.getData('user_email_verified') ?? '';
+//       String phone = LocalStore.getData('user_two_factor_required') ?? '';
+//       String gender = LocalStore.getData('user_rolename') ?? '';
+//       String? dob = LocalStore.getData('dob') ?? '';
+//
+//       // Set the employee details in the App.user object
+//       App.user = EmployeeDetails(
+//         userId: userId,
+//         apiToken: token,
+//         name: name,
+//         employeeId:employeeId,
+//         email: email,
+//         phone: phone,
+//         gender: gender,
+//         dob: dob,
+//       );
+//
+//       Get.offNamed(Routes.dashBoardPage);
+//     } else {
+//       Get.offNamed(Routes.login);
+//     }
+//   }
+//
+//
+//   bool isLoggedIn() {
+//     // Check if the user object and API token are present
+//     return App.user != null && App.user.apiToken != null && App.user.apiToken!.isNotEmpty;
+//   }
+
 
 }

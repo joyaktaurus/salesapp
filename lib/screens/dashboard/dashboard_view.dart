@@ -5,17 +5,20 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:salesapp/components/app_dash_cards.dart';
 import 'package:salesapp/my_theme.dart';
+import 'package:salesapp/presets/api_paths.dart';
 import 'package:salesapp/screens/addproduct/addproduct_view.dart';
 import 'package:salesapp/screens/addshop/addshop_view.dart';
 import 'package:salesapp/screens/personaldetails/personal_view.dart';
 import 'package:salesapp/screens/shoplists/shoplist_view.dart';
 import '../../app.dart';
 import '../../components/app_blue_card.dart';
+import '../../components/app_buttons.dart';
 import '../../routes.dart';
 import '../../services/privileges_resp.dart';
 import '../../utils/asset_helper.dart';
 import '../../utils/local_store.dart';
 import '../../utils/my_utils.dart';
+import '../shoplists/shop_list_view.dart';
 import 'dashboard_controller.dart';
 
 class DashBoardView extends GetView<DashboardViewController> {
@@ -29,7 +32,7 @@ class DashBoardView extends GetView<DashboardViewController> {
         child: Scaffold(
             body: Stack(children: [
           MyBlueCard(
-            height: Get.height * 0.50,
+            height: Get.height * 0.40,
             color: MyTheme.myBlueDark,
             clipBehavior: 0,
             radius: 50,
@@ -43,10 +46,11 @@ class DashBoardView extends GetView<DashboardViewController> {
                     children: [
                       IconButton(
                           onPressed: () {
-                            LocalStore.clearData();
-                            App.selectedSuborg =
-                                SelectedSuborg(id: -1, name: "All");
-                            Get.offNamed(Routes.login);
+                            ExitAlert(context);
+                            // LocalStore.clearData();
+                            // App.selectedSuborg =
+                            //     SelectedSuborg(id: -1, name: "All");
+                            // Get.offNamed(Routes.login);
                           },
                           icon: Icon(
                             Icons.logout,
@@ -108,7 +112,7 @@ class DashBoardView extends GetView<DashboardViewController> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             CircleAvatar(
-                                              backgroundColor: Colors.blue,
+                                              backgroundColor: MyTheme.myBlueDark,
                                               child: Center(
                                                 child: IconButton(
                                                     onPressed: () {
@@ -135,7 +139,7 @@ class DashBoardView extends GetView<DashboardViewController> {
                                           child: Column(
                                             children: [
                                               CircleAvatar(
-                                                backgroundColor: Colors.blue,
+                                                backgroundColor: MyTheme.myBlueDark,
                                                 child: Center(
                                                   child: IconButton(
                                                       onPressed: () {
@@ -175,7 +179,7 @@ class DashBoardView extends GetView<DashboardViewController> {
                           child: Icon(
                             Icons.camera_alt,
                             size: 30.0,
-                            color: Colors.blue,
+                            color: MyTheme.myBlueDark,
                           ),
                         ),
                       ),
@@ -208,7 +212,7 @@ class DashBoardView extends GetView<DashboardViewController> {
                           fontSize: Get.height * .020, color: MyTheme.whiteColor),
                     ),
                     Text(
-                      "${App.user.userId}",
+                      "${App.user.id}",
                       style: MyTheme.regularTextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: Get.height * .020, color: MyTheme.whiteColor),
@@ -219,9 +223,10 @@ class DashBoardView extends GetView<DashboardViewController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 500),
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: Stack(children: [
               Column(children: [
+                SizedBox(height: Get.height * .460),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -258,7 +263,7 @@ class DashBoardView extends GetView<DashboardViewController> {
                       onTap: () {
                            Get.to(ShopListView());
                       },
-                      image: AssetHelper.shop,Scale: .7,
+                      image: AssetHelper.sdetails,Scale: .9,
                     ),
                     DashBoardCards(
                       width: Get.width * .400,
@@ -274,29 +279,29 @@ class DashBoardView extends GetView<DashboardViewController> {
                 SizedBox(
                   height: Get.height * .028,
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //   children: [
-                //     DashBoardCards(
-                //       width: Get.width * .400,
-                //       height: Get.height * .110,
-                //       text: "Products View",
-                //       onTap: () {
-                //            Get.to(AddProductView());
-                //       },
-                //       image: AssetHelper.profileImage,
-                //     ),
-                //     DashBoardCards(
-                //       width: Get.width * .400,
-                //       height: Get.height * .110,
-                //       text: "Personal Details",
-                //       onTap: () {
-                //         //   Get.to(LeaveRequestView()
-                //       },
-                //       image: AssetHelper.profileImage,
-                //     ),
-                //   ],
-                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    DashBoardCards(
+                      width: Get.width * .400,
+                      height: Get.height * .140,
+                      text: "K/M Details",
+                      onTap: () {
+                         //  Get.to(AddProductView());
+                      },
+                      image: AssetHelper.kmdetails,
+                    ),
+                    DashBoardCards(
+                      width: Get.width * .400,
+                      height: Get.height * .140,
+                      text: "Attendence",
+                      onTap: () {
+                        //   Get.to(LeaveRequestView()
+                      },
+                      image: AssetHelper.calender,Scale: .7, color: MyTheme.myBlueDark,
+                    ),
+                  ],
+                ),
                 SizedBox(
                   height: Get.height * .028,
                 ),
@@ -328,4 +333,115 @@ class DashBoardView extends GetView<DashboardViewController> {
           )
         ])));
   }
+}
+
+void ExitAlert(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (ctx) {
+      return AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(45)),
+        ),
+        title: Container(
+          width: Get.width * 0.95,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Exit Application",
+                    style: MyTheme.regularTextStyle(
+                      color: MyTheme.myBlueDark,
+                      fontSize: Get.height * 0.02,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(
+                      Icons.close,
+                      color: MyTheme.myBlueDark,
+                      size: 15,
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: Get.height * 0.03),
+              Container(
+                child: RichText(
+                    text: TextSpan(children: [
+                      TextSpan(
+                          text: 'Total kilometer you travelled today : ',
+                          style: MyTheme.regularTextStyle(
+                            color: Colors.black,
+                            fontSize: Get.height * 0.02,
+                            fontWeight: FontWeight.normal,
+                          ),),
+                      TextSpan(
+                          text: '9.1 k/m',
+                        style: MyTheme.regularTextStyle(
+                          color: MyTheme.myBlueDark,
+                          fontSize: Get.height * 0.02,
+                          fontWeight: FontWeight.w500,
+                        ),)
+                    ])),
+              ),
+              SizedBox(height: Get.height * 0.03),
+              Text(
+                "Do you wish to logout ? ",
+                style: MyTheme.regularTextStyle(
+                  color: Colors.black,
+                  fontSize: Get.height * 0.017,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              SizedBox(height: Get.height * 0.03),
+              Row(
+               mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    style: TextButton.styleFrom(
+                      side: BorderSide(color: MyTheme.myBlueDark),fixedSize:  Size(100, 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                    // label: (const Text("Continue with google", style: TextStyle(color: Colors.white),)),
+                    child:  Text("no".toUpperCase(), style: TextStyle(color:MyTheme.myBlueDark),),
+
+                    // child: Text("Continue with google"),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                            //ApiPaths.logout;
+                            LocalStore.clearData();
+                            Get.offNamed(Routes.login);
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: MyTheme.myBlueDark,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          fixedSize:  Size(100, 40)),
+                      child:  Text('yes'.toUpperCase())),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }

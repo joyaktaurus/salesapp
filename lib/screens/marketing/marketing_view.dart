@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:salesapp/components/app_boxes.dart';
 import 'package:salesapp/screens/addproduct/addproduct_view.dart';
 import '../../app.dart';
+import '../../components/app_blank_body.dart';
 import '../../components/app_body_view.dart';
 import '../../components/app_buttons.dart';
 import '../../my_theme.dart';
@@ -20,7 +21,6 @@ class MarketingView extends GetView<MarketingController> {
  MarketingView({Key? key,required this.widgetId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final ShopListController _radioController = Get.find<ShopListController>();
     Get.put(MarketingController());
     controller.shopid =int.parse(App.shopdetatils[widgetId].intShopId!);
       return GestureDetector(
@@ -28,9 +28,10 @@ class MarketingView extends GetView<MarketingController> {
           MyUtils.hideKeyboard();
         },
         child: Scaffold(
+         key: controller.scaffoldKey,
             backgroundColor: Colors.grey[200],
             body: Stack(children: [
-              BodyView(),
+              BodyViewTop(),
               Padding(
                 padding: EdgeInsets.only(top: Get.height * .163),
                 child: Row(
@@ -186,24 +187,6 @@ class MarketingView extends GetView<MarketingController> {
                               buttonPress: () {
                                 MyUtils.hideKeyboard();
                                 errM(() => controller.shopMarketing());
-                                // MyUtils.hideKeyboard();
-                                // errM(() {
-                                //   final MarketingController marketingController = Get.find<MarketingController>();
-                                //   final String shopid = App.shopdetatils[widgetId].shopName.toString();
-                                //   final String customername = App.shopdetatils[widgetId].customerName.toString();
-                                //   final String visitdate = controller.selectedDate.value;
-                                //   final String visitpurpose = 'marketing'; // Set the visit purpose
-                                //   final String marketingnotes = controller.notesCtrl.text; // Set the marketing notes
-                                //
-                                //   marketingController.submitMarketingData(
-                                //     shopid: shopid,
-                                //     visitdate: visitdate,
-                                //     visitpurpose: visitpurpose,
-                                //     marketingnotes: marketingnotes,
-                                //    // shopname:shopname,
-                                //     customername: customername
-                                //   );
-                                // });
                               },
                               isEnabled: true,
                               padding: const EdgeInsets.all(30),

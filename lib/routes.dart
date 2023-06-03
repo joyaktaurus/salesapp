@@ -5,10 +5,14 @@ import 'package:salesapp/screens/addproduct/addproduct_binding.dart';
 import 'package:salesapp/screens/addproduct/addproduct_view.dart';
 import 'package:salesapp/screens/addshop/addshop_binding.dart';
 import 'package:salesapp/screens/addshop/addshop_view.dart';
+import 'package:salesapp/screens/customer_detail/detail_binding.dart';
+import 'package:salesapp/screens/customer_detail/detail_view.dart';
 import 'package:salesapp/screens/dashboard/dashboard_binding.dart';
 import 'package:salesapp/screens/dashboard/dashboard_view.dart';
 import 'package:salesapp/screens/forgot_password/forgot_pass_binding.dart';
 import 'package:salesapp/screens/forgot_password/forgot_pass_view.dart';
+import 'package:salesapp/screens/itemlist/itemlist_binding.dart';
+import 'package:salesapp/screens/itemlist/itemlist_view.dart';
 import 'package:salesapp/screens/login/login_binding.dart';
 import 'package:salesapp/screens/login/login_view.dart';
 import 'package:salesapp/screens/mailcheck/mail_check_binding.dart';
@@ -17,6 +21,7 @@ import 'package:salesapp/screens/marketing/marketing_binding.dart';
 import 'package:salesapp/screens/marketing/marketing_view.dart';
 import 'package:salesapp/screens/personaldetails/personal_binding.dart';
 import 'package:salesapp/screens/personaldetails/personal_view.dart';
+import 'package:salesapp/screens/shoplists/shop_list_view.dart';
 import 'package:salesapp/screens/shoplists/shoplist_binding.dart';
 import 'package:salesapp/screens/shoplists/shoplist_view.dart';
 import 'package:salesapp/screens/splashscreen.dart';
@@ -33,6 +38,8 @@ class Routes {
   static const addOrderPage = '/addorderPage';
   static const addProductPage = '/addproductPage';
   static const marketingPage = '/marketingPage';
+  static const detailViewPage = '/detailviewPage';
+  static const itemListViewPage = '/itemlistviewPage';
 
   static final routes = [
     GetPage(
@@ -42,52 +49,62 @@ class Routes {
     GetPage(
       binding: LoginViewBindings(),
       name: login,
-      page: () => const LoginView(),
+      page: () =>  LoginView(),
     ),
     GetPage(
       binding: ForgotViewBindings(),
       name: forgotPassPage,
-      page: () => const ForgotPassView(),
+      page: () =>  ForgotPassView(),
     ),
     GetPage(
       binding: MailCheckBindings(),
       name: mailCheckPage,
-      page: () => const MailCheckView(),
+      page: () =>  MailCheckView(),
     ),
     GetPage(
       binding: DashboardViewBindings(),
       name: dashBoardPage,
-      page: () => const DashBoardView(),
+      page: () =>  DashBoardView(),
     ),
     GetPage(
       binding: PersonalBindings(),
       name: personalPage,
-      page: () => const PersonalView(),
+      page: () =>  PersonalView(),
     ),
     GetPage(
       binding: AddShopBindings(),
       name: addShopPage,
-      page: () => const AddShopView(),
+      page: () =>  AddShopView(),
     ),
     GetPage(
       binding: ShopListBindings(),
       name: shopListPage,
-      page: () => const ShopListView(),
+      page: () =>  ShopListView(),
     ),
     GetPage(
       binding: AddOrderBindings(),
       name: addOrderPage,
-      page: () =>  AddOrderView(widgetId: 0,),
+      page: () =>  AddOrderView(widgetId: 2,),
     ),
     GetPage(
       binding: AddProductBindings(),
       name: addProductPage,
-      page: () => const AddProductView(),
+      page: () =>  AddProductView(),
     ),
     GetPage(
       binding: MarketingBindings(),
       name: marketingPage,
-      page: () =>  MarketingView(widgetId: 0,),
+      page: () =>  MarketingView(widgetId: 1),
+    ),
+    GetPage(
+      binding: DetailViewBindings(),
+      name: detailViewPage,
+      page: () =>  DetailView(3),
+    ),
+    GetPage(
+      binding: ItemListBindings(),
+      name: itemListViewPage,
+      page: () =>  ItemListView(),
     ),
   ];
 }

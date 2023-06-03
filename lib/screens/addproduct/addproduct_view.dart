@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:salesapp/screens/addorder/addorder_view.dart';
 import '../../components/app_alertbox.dart';
+import '../../components/app_blank_body.dart';
 import '../../components/app_body_view.dart';
 import '../../components/app_buttons.dart';
 import '../../my_theme.dart';
@@ -23,7 +24,7 @@ class AddProductView extends GetView<AddProductController> {
         child: Scaffold(
             backgroundColor: Colors.grey[200],
             body: Stack(children: [
-              BodyView(),
+               BodyViewTop(),
               Padding(
                 padding: EdgeInsets.only(top: Get.height * .163),
                 child: Row(
@@ -172,7 +173,7 @@ class AddProductView extends GetView<AddProductController> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        ProductShow(context);
+                                       ProductShow(context);
                                       },
                                       child: Container(
                                         height: Get.height * 0.05,
@@ -204,4 +205,97 @@ class AddProductView extends GetView<AddProductController> {
               ),
             ])));
   }
+}
+void AddToList(BuildContext context) {
+  showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20)),
+          title: Container(
+            width: Get.width * .9,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(Icons.close,
+                            color: MyTheme.myBlueDark, size: 15))
+                  ],
+                ),
+                ProfileRows("Rate  :   ", "10000.00"),
+                Divider(thickness: 1),
+                ProfileRows("Rate  :   ", "10000.00"),
+                Divider(thickness: 1),
+                ProfileRows("Quantity  :   ", "1"),
+                SizedBox(height: Get.height * .01),
+                Divider(thickness: 1),
+                SizedBox(height: Get.height * .01),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        ProductShow(context);
+                      },
+                      child: Container(
+                        height: Get.height * 0.05,
+                        width: Get.width * 0.2,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.circular(15),
+                            color: MyTheme.myBlueDark),
+                        child: Center(
+                          child: Text(
+                            "ADD",
+                            style: MyTheme.regularTextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: MyTheme.whiteColor,
+                              fontSize: Get.height * .018,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+
+              ],
+            ),
+          ),
+        );
+      });
+}
+
+Padding ProfileRows(String text, text1) {
+  return Padding(
+    padding: EdgeInsets.only(left: 10, right: 10, bottom: 5),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          text,
+          style: MyTheme.regularTextStyle(
+              fontSize: Get.height * .016,
+              color: Colors.black,
+              fontWeight: FontWeight.w400),
+        ),
+        Text(
+          text1,
+          style: MyTheme.regularTextStyle(
+              fontSize: Get.height * .016,
+              color: Colors.black,
+              fontWeight: FontWeight.w400),
+        ),
+      ],
+    ),
+  );
 }

@@ -20,6 +20,7 @@ class PersonalView extends GetView<PersonalController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(PersonalController());
     return GestureDetector(
         onTap: () {
           MyUtils.hideKeyboard();
@@ -33,7 +34,8 @@ class PersonalView extends GetView<PersonalController> {
                 //     backgroundImage: AssetHelper.profilePic,
                 //   ),
                 // ),
-                color: Colors.grey,
+                color: Colors.white,
+                imagePath: AssetHelper.profilePic,
                 width: Get.width * .270,
                 height: Get.height * .270,
               ),
@@ -43,7 +45,7 @@ class PersonalView extends GetView<PersonalController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "TOM JOE",
+                      "${App.user.name?.toUpperCase()}",
                       style: MyTheme.regularTextStyle(
                         fontWeight: FontWeight.w600,
                         color: MyTheme.myBlueDark,
@@ -82,10 +84,11 @@ class PersonalView extends GetView<PersonalController> {
                                       style: MyTheme.regularTextStyle(
                                         color: Colors.black,
                                         fontSize: Get.height * .016,
+                                        fontWeight: FontWeight.w600
                                       ),
                                     ),
                                     Text(
-                                      "${App.user.userId}",
+                                      "${App.user.id}",
                                       style: MyTheme.regularTextStyle(
                                         color: Colors.black,
                                         fontSize: Get.height * .016,
@@ -94,7 +97,7 @@ class PersonalView extends GetView<PersonalController> {
                                   ]),
                                   GestureDetector(
                                     onTap: () {
-                                      MarkCleanAlert(context);
+                                      MarkCleanAlert(context, controller);
                                     },
                                     child: Image.asset(
                                       AssetHelper.edit,
@@ -117,7 +120,7 @@ class PersonalView extends GetView<PersonalController> {
                     SizedBox(height: Get.height * .026),
                     AppBoxes(
                       child: Padding(
-                        padding: EdgeInsets.only(top: 15.0, bottom: 10.0),
+                        padding: EdgeInsets.only(top: 15.0, bottom: 10.0, left: 15),
                         child: Column(
                           children: [
                             Text(
@@ -129,8 +132,8 @@ class PersonalView extends GetView<PersonalController> {
                               ),
                             ),
                             SizedBox(height: Get.height * .007),
-                            ProfileRows("Number of Sales Made : ", "1k"),
-                            ProfileRows("Deals Closed : ", "5k"),
+                            ProfileRows("Number of Sales Made : ", "5k"),
+                            ProfileRows("Deals Closed : ", "4k"),
                             ProfileRows("Products Sold : ", "7k"),
                           ],
                         ),
@@ -139,7 +142,7 @@ class PersonalView extends GetView<PersonalController> {
                     SizedBox(height: Get.height * .026),
                     AppBoxes(
                       child: Padding(
-                        padding: EdgeInsets.only(top: 15.0, bottom: 5.0),
+                        padding: EdgeInsets.only(top: 15.0, bottom: 5.0, left: 15),
                         child: Column(
                           children: [
                             Text(
@@ -172,7 +175,7 @@ class PersonalView extends GetView<PersonalController> {
             style: MyTheme.regularTextStyle(
                 fontSize: Get.height * .016,
                 color: Colors.black,
-                fontWeight: FontWeight.w400),
+                fontWeight: FontWeight.w600),
           ),
           Text(
             text1,
@@ -186,65 +189,85 @@ class PersonalView extends GetView<PersonalController> {
     );
   }
 }
-void MarkCleanAlert(BuildContext context) {
+void MarkCleanAlert(BuildContext context, PersonalController controller) {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+
   showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (ctx) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(45))),
-          title: Container(
-            width: Get.width * .9,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        icon: Icon(Icons.close,
-                            color: MyTheme.myBlueDark, size: 15))
-                  ],
-                ),
-                Text(
-                  "UPDATE INFORMATION",
-                  style: MyTheme.regularTextStyle(
+    context: context,
+    barrierDismissible: false,
+    builder: (ctx) {
+      return AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(45)),
+        ),
+        title: Container(
+          width: Get.width * 0.9,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(
+                      Icons.close,
                       color: MyTheme.myBlueDark,
-                      fontSize: Get.height * .020,
-                      fontWeight: FontWeight.w600),
+                      size: 15,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                "UPDATE INFORMATION",
+                style: MyTheme.regularTextStyle(
+                  color: MyTheme.myBlueDark,
+                  fontSize: Get.height * 0.02,
+                  fontWeight: FontWeight.w600,
                 ),
-                SizedBox(height: Get.height * .03),
-                TextFormField(
-                  decoration: textBoxDecoration('Email'),
-                  textInputAction: TextInputAction.next,
+              ),
+              SizedBox(height: Get.height * 0.03),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Email',
                 ),
-                SizedBox(height: Get.height * .03),
-                TextFormField(
-                  decoration: textBoxDecoration('Mobile Number'),
-                  textInputAction: TextInputAction.next,
+                controller: emailController,
+                textInputAction: TextInputAction.next,
+              ),
+              SizedBox(height: Get.height * 0.03),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Mobile Number',
                 ),
-                SizedBox(height: Get.height * .0039),
-                MAButton(
-                  text: 'Update',
-                  buttonPress: () {
-                    Get.offNamed(Routes.dashBoardPage);
-                  },
-                  isEnabled: true,
-                  padding: const EdgeInsets.all(30),
-                  height: Get.height * 0.06,
-                  width: Get.width * 0.3,
-                  clipBehavior: 0,
-                  radius: 30, fontSize: 20,
-                ),
-              ],
-            ),
+                controller: mobileController,
+                textInputAction: TextInputAction.next,
+              ),
+              SizedBox(height: Get.height * 0.0039),
+              Obx(() => MAButton(
+                text: 'Update',
+                buttonPress: controller.isLoading.value
+                    ? null
+                    : () {
+                  String newEmail = emailController.text;
+                  String newPhone = mobileController.text;
+                  controller.updateProfile(newEmail, newPhone);
+                  Get.offNamed(Routes.dashBoardPage);
+                },
+                isEnabled: !controller.isLoading.value,
+                padding:  EdgeInsets.all(30),
+                height: Get.height * 0.06,
+                width: Get.width * 0.3,
+                clipBehavior:50,
+                radius: 30,
+                fontSize: 20,
+              )),
+            ],
           ),
-        );
-      });
+        ),
+      );
+    },
+  );
 }
-
-

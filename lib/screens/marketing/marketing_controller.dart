@@ -5,13 +5,19 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:intl/intl.dart';
+import 'package:salesapp/presets/api_paths.dart';
+import 'package:salesapp/routes.dart';
 import 'package:salesapp/screens/shoplists/shoplist_controller.dart';
+import 'package:salesapp/screens/shoplists/shoplist_view.dart';
 import '../../app.dart';
 import '../../models/api_resp.dart';
 import '../../models/marketing_res.dart';
+import '../../models/order_resp.dart';
 import '../../services/marketing_services.dart';
 
 class MarketingController extends GetxController {
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   final ShopListController radioController = Get.find<ShopListController>();
   int shopid=0;
   late DateTime dateTime;
@@ -28,35 +34,27 @@ class MarketingController extends GetxController {
   void shopMarketing() async {
     log("Shop marketing called");
     ApiResp resp = await MarketingServices.fetchMarketing(
-      shopid: shopid ,
-      visitdate:DateTime.now().toString(),
+      shopid: shopid,
+      visitdate: DateTime.now().toString(),
       marketingnotes: notesCtrl.text,
       visitpurpose: 'marketing',
-     // shopname: App.shopdetatils.first.shopName.toString(),
-   //   customername: App.shopdetatils.first.customerName.toString(),
+      longitude: 'longitude',
+      latitude: 'latitude',
     );
     if (resp.ok == false) {
-
       return;
     }
     MarketList marketList = MarketList.fromJson(resp.rdata);
-
+    radioController.submitMarketing();
+    Get.back();
     Get.snackbar('Marketing Successfully Completed', 'success', backgroundColor: Colors.white);
     if (marketList.message == 'Marketing Successfully Completed') {
-      radioController.submitMarketing();
-
-      // Navigate back to the previous screen
-      Get.back(result: true);
-
-      // radioController.isMarketingSelected.value = true;
-      // radioController.isSalesSelected.value = false;
-      // radioController.marketingColor.value = Colors.red;
-
-      //shopnid.clear();
       cusnameCtrl.clear();
       notesCtrl.clear();
     }
+
   }
+
 
 
   Rx<String> selectedDate = 'Start Date'.obs;

@@ -10,6 +10,7 @@ class DashBoardCards extends StatelessWidget {
   final double? widthh;
   final double? heightt;
   final Scale;
+  final Color? color;
 
 //  final String svg;
   final String image;
@@ -22,7 +23,7 @@ class DashBoardCards extends StatelessWidget {
     required this.text,
     required this.onTap,
     // required this.svg,
-    required this.image,  this.widthh, this.heightt, this.Scale,
+    required this.image,  this.widthh, this.heightt, this.Scale, this.color,
   }) : super(key: key);
 
   @override
@@ -51,7 +52,7 @@ class DashBoardCards extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(image,
-                width: widthh, height: heightt, scale: Scale,
+                width: widthh, height: heightt, scale: Scale,color: color,
                 ),
               SizedBox(height: Get.height * 0.01),
               Text(

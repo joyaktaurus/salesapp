@@ -34,7 +34,7 @@ class RoundedLoader extends StatefulWidget {
   final Color color3;
   // ignore: use_key_in_widget_constructors
   const RoundedLoader(
-      {this.color1 = Colors.deepOrangeAccent,
+      {this.color1 = Colors.blue,
       this.color2 = Colors.yellow,
       this.color3 = Colors.lightGreen});
 

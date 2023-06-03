@@ -1,8 +1,11 @@
 abstract class ApiPaths {
   static const baseUrl = 'https://seowebdesign.in/Sales_Executive/api/v1/';
-  static const imagePath = 'static/files/';
+  static const search = 'shop-search';
+  static const imagePath = 'static/files';
   static const login = 'login';
+  static const logout = 'logout';
   static const update = 'update';
+  static const shopdetails = 'shop-details';
   static const shopregister = 'shop-register';
   static const shoplist = 'get-shop';
   static const marketing = 'marketing';

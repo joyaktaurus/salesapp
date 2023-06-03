@@ -27,4 +27,7 @@ abstract class AssetHelper {
    static get swatch => images("swatch.png");
    static get proView => images("proview.png");
    static get profilePic => images("profilepic.png");
+   static get calender => images("Alternate Calendar_.png");
+   static get sdetails => images("sdetails.png");
+   static get kmdetails => images("kmdetails.png");
 }
