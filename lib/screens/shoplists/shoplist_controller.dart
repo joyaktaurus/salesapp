@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../app.dart';
 import '../../models/api_resp.dart';
@@ -12,6 +13,10 @@ import '../../services/shopdetails_services.dart';
 import '../../services/shoplist_services.dart';
 
 class ShopListController extends GetxController {
+  final box = GetStorage();
+  Rx<int?> completedMarketingIndex = Rx<int?>(null);
+  RxList<int> submittedMarketingIndices = RxList<int>([]);
+
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController CustomersSearchCntrl = TextEditingController(text: '');
   final ScrollController customersScrollController = ScrollController();
@@ -87,12 +92,24 @@ class ShopListController extends GetxController {
     isScreenProgress.value = true;
 
   }
+  // void submitMarketing() {
+  //   isMarketingSelected.value = true;
+  //   isSalesSelected.value = false;
+  //   marketingColor.value = Colors.blue;
+  //   salesColor.value = Colors.grey;
+  //   isMarketingCompleted.value = true;
+  // }
   void submitMarketing() {
     isMarketingSelected.value = true;
     isSalesSelected.value = false;
-    marketingColor.value = Colors.blue;
+    marketingColor.value = Colors.red;
     salesColor.value = Colors.grey;
-    isMarketingCompleted.value = true;
+
+    // Add the current index to the submittedMarketingIndices list
+    int index = selectedOption.value;
+    if (!submittedMarketingIndices.contains(index)) {
+      submittedMarketingIndices.add(index);
+    }
   }
 
   void submitSales() {

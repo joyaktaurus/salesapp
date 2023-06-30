@@ -12,7 +12,7 @@ class PersonalController extends GetxController {
   var email = ''.obs;
   var phone = ''.obs;
   var isLoading = false.obs;
-
+  RxBool isScreenProgress = false.obs;
   Future<void> updateProfile(String newEmail, String newPhone) async {
     try {
       // Make API call to update email and phone number
@@ -55,5 +55,4 @@ class PersonalController extends GetxController {
       isLoading.value = false;
     }
   }
-
 }

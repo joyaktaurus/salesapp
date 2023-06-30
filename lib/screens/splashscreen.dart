@@ -68,17 +68,16 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
   Future<void> checkAlreadyLogged() async {
-    Future.delayed(
-      const Duration(milliseconds: 1400),
-          () async {
-        if (App.token.isEmpty) {
-          Get.offNamed(Routes.login);
-        } else {
-          Get.offNamed(Routes.dashBoardPage);
-        }
-      },
-    );
+    await Future.delayed(const Duration(milliseconds: 1400));
+
+    if (App.token.isNotEmpty) {
+      Get.offAllNamed(Routes.dashBoardPage);
+    } else {
+      Get.offAllNamed(Routes.login);
+    }
   }
+
+}
 
 // Future<void> checkAlreadyLogged() async {
 //     await Future.delayed(const Duration(milliseconds: 1400));
@@ -120,6 +119,3 @@ class _SplashScreenState extends State<SplashScreen> {
 //     // Check if the user object and API token are present
 //     return App.user != null && App.user.apiToken != null && App.user.apiToken!.isNotEmpty;
 //   }
-
-
-}

@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -25,35 +26,108 @@ class MarketingController extends GetxController {
   final TextEditingController cusnameCtrl = TextEditingController(text: '');
   final TextEditingController dateCtrl = TextEditingController(text: '');
   final TextEditingController notesCtrl = TextEditingController(text: '');
-
+  // int index = 0;
   final FocusNode shopnameCtrlfNode = FocusNode();
   final FocusNode cusnameCtrlfNode = FocusNode();
   final FocusNode dateCtrlfNode = FocusNode();
   final FocusNode notesCtrlfNode = FocusNode();
+  String longitude = "123.456";
+  String latitude = "78.901";
+  Future<void> shopMarketing() async {
+    int shopId = shopid;
+    String visitDate = DateTime.now().toString();
+    String marketingnotes = notesCtrl.text;
+    String visitPurpose = 'marketing';
 
-  void shopMarketing() async {
-    log("Shop marketing called");
+    // Fetch the current location
+    Position position;
+    try {
+      position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+    } catch (e) {
+      // Handle location fetch error
+      print('Error fetching location: $e');
+      // Show a snackbar or display an error message
+      return;
+    }
+
+    double longitude = position.longitude;
+    double latitude = position.latitude;
+
+    // Call the API with the location data
     ApiResp resp = await MarketingServices.fetchMarketing(
-      shopid: shopid,
-      visitdate: DateTime.now().toString(),
-      marketingnotes: notesCtrl.text,
-      visitpurpose: 'marketing',
-      longitude: 'longitude',
-      latitude: 'latitude',
+      shopid: shopId,
+      visitdate: visitDate,
+      marketingnotes: marketingnotes,
+      visitpurpose: visitPurpose,
+      longitude: longitude.toString(),
+      latitude: latitude.toString(),
     );
+
     if (resp.ok == false) {
       return;
     }
+
     MarketList marketList = MarketList.fromJson(resp.rdata);
     radioController.submitMarketing();
     Get.back();
-    Get.snackbar('Marketing Successfully Completed', 'success', backgroundColor: Colors.white);
+    Get.snackbar('Marketing Successfully Completed', 'success',
+        backgroundColor: Colors.white);
     if (marketList.message == 'Marketing Successfully Completed') {
       cusnameCtrl.clear();
       notesCtrl.clear();
     }
-
   }
+//............................................
+//   void shopMarketing() async {
+//     log("Shop marketing called");
+//     ApiResp resp = await MarketingServices.fetchMarketing(
+//       shopid: shopid,
+//       visitdate: DateTime.now().toString(),
+//       marketingnotes: notesCtrl.text,
+//       visitpurpose: 'marketing',
+//       longitude: 'longitude',
+//       latitude: 'latitude',
+//     );
+//     if (resp.ok == false) {
+//       return;
+//     }
+//     MarketList marketList = MarketList.fromJson(resp.rdata);
+//     radioController.submitMarketing();
+//     Get.back();
+//     Get.snackbar('Marketing Successfully Completed', 'success', backgroundColor: Colors.white);
+//     if (marketList.message == 'Marketing Successfully Completed') {
+//       cusnameCtrl.clear();
+//       notesCtrl.clear();
+//     }
+//
+//   }
+//...................................................
+//   void shopMarketing() async {
+//     log("Shop marketing called");
+//
+//     // Get the current position
+//     Position position = await Geolocator.getCurrentPosition(
+//       desiredAccuracy: LocationAccuracy.high,
+//     );
+//
+//     // Retrieve the latitude and longitude
+//     double latitude = position.latitude;
+//     double longitude = position.longitude;
+//
+//     // Call the API with the retrieved location
+//     ApiResp resp = await MarketingServices.fetchMarketing(
+//       shopid: shopid,
+//       visitdate: DateTime.now().toString(),
+//       marketingnotes: notesCtrl.text,
+//       visitpurpose: 'marketing',
+//       longitude: longitude.toString(),
+//       latitude: latitude.toString(),
+//     );
+//
+//     // Rest of your code...
+//   }
 
 
 

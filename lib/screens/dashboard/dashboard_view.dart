@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -13,9 +14,12 @@ import 'package:salesapp/screens/shoplists/shoplist_view.dart';
 import '../../app.dart';
 import '../../components/app_blue_card.dart';
 import '../../components/app_buttons.dart';
+import '../../models/api_resp.dart';
 import '../../routes.dart';
+import '../../services/logout_services.dart';
 import '../../services/privileges_resp.dart';
 import '../../utils/asset_helper.dart';
+import '../../utils/err_m.dart';
 import '../../utils/local_store.dart';
 import '../../utils/my_utils.dart';
 import '../shoplists/shop_list_view.dart';
@@ -25,6 +29,7 @@ class DashBoardView extends GetView<DashboardViewController> {
   const DashBoardView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    String? profilePic = LocalStore.getString('profilePic');
     return GestureDetector(
         onTap: () {
           MyUtils.hideKeyboard();
@@ -62,128 +67,128 @@ class DashBoardView extends GetView<DashboardViewController> {
                 CircleAvatar(
                   radius: 60.0,
                   backgroundColor: Colors.white,
-                  child: CircleAvatar(
-                    //backgroundColor: Colors.red,
-                    backgroundImage: AssetImage(AssetHelper.profilePic),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: GestureDetector(
-                        onTap: () async {
-                          await Get.bottomSheet(
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(10),
-                                    topLeft: Radius.circular(10),
-                                  )),
-                              height: 170,
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Profile Photo",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {
-                                           //   controller.removeImages();
-                                            },
-                                            icon: Icon(Icons.delete))
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: Get.height * 0.02,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            CircleAvatar(
-                                              backgroundColor: MyTheme.myBlueDark,
-                                              child: Center(
-                                                child: IconButton(
-                                                    onPressed: () {
-                                                      // controller.takePhoto(
-                                                      //     ImageSource
-                                                      //         .camera);
-                                                      Get.back();
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.camera_alt,
-                                                      color: Colors.white,
-                                                      size: 25,
-                                                    )),
-                                              ),
-                                            ),
-                                            SizedBox(height: Get.height * 0.01),
-                                            Text(
-                                              "Camera",
-                                              style: TextStyle(fontSize: 18),
-                                            )
-                                          ],
-                                        ),
-                                        GestureDetector(
-                                          child: Column(
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor: MyTheme.myBlueDark,
-                                                child: Center(
-                                                  child: IconButton(
-                                                      onPressed: () {
-                                                        // controller.Photogallery(
-                                                        //     ImageSource
-                                                        //         .gallery);
-                                                        // Get.back();
-                                                        // print(controller.pickedfile.value);
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.image,
-                                                        color: Colors.white,
-                                                        size: 25,
-                                                      )),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                  height: Get.height * 0.01),
-                                              Text(
-                                                "Gallery",
-                                                style: TextStyle(fontSize: 18),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 20.0,
-                          child: Icon(
-                            Icons.camera_alt,
-                            size: 30.0,
-                            color: MyTheme.myBlueDark,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child:CircleAvatar(
+                    backgroundColor: Colors.white,
+                   // backgroundImage: NetworkImage(profilePic ?? ''),
+                    foregroundImage:AssetImage(AssetHelper.profileImage),
+                    //   alignment: Alignment.bottomRight,
+                    //   child: GestureDetector(
+                    //     onTap: () async {
+                    //       await Get.bottomSheet(
+                    //         Container(
+                    //           decoration: BoxDecoration(
+                    //               color: Colors.white,
+                    //               borderRadius: BorderRadius.only(
+                    //                 topRight: Radius.circular(10),
+                    //                 topLeft: Radius.circular(10),
+                    //               )),
+                    //           height: 170,
+                    //           child: Padding(
+                    //             padding: const EdgeInsets.all(12.0),
+                    //             child: Column(
+                    //               crossAxisAlignment: CrossAxisAlignment.start,
+                    //               children: [
+                    //                 Row(
+                    //                   mainAxisAlignment:
+                    //                       MainAxisAlignment.spaceBetween,
+                    //                   children: [
+                    //                     Text(
+                    //                       "Profile Photo",
+                    //                       style: TextStyle(
+                    //                           fontSize: 18,
+                    //                           fontWeight: FontWeight.w500),
+                    //                     ),
+                    //                     IconButton(
+                    //                         onPressed: () {
+                    //                        //   controller.removeImages();
+                    //                         },
+                    //                         icon: Icon(Icons.delete))
+                    //                   ],
+                    //                 ),
+                    //                 SizedBox(
+                    //                   height: Get.height * 0.02,
+                    //                 ),
+                    //                 Row(
+                    //                   mainAxisAlignment:
+                    //                       MainAxisAlignment.spaceEvenly,
+                    //                   children: [
+                    //                     Column(
+                    //                       crossAxisAlignment:
+                    //                           CrossAxisAlignment.center,
+                    //                       children: [
+                    //                         CircleAvatar(
+                    //                           backgroundColor: MyTheme.myBlueDark,
+                    //                           child: Center(
+                    //                             child: IconButton(
+                    //                                 onPressed: () {
+                    //                                   // controller.takePhoto(
+                    //                                   //     ImageSource
+                    //                                   //         .camera);
+                    //                                   Get.back();
+                    //                                 },
+                    //                                 icon: Icon(
+                    //                                   Icons.camera_alt,
+                    //                                   color: Colors.white,
+                    //                                   size: 25,
+                    //                                 )),
+                    //                           ),
+                    //                         ),
+                    //                         SizedBox(height: Get.height * 0.01),
+                    //                         Text(
+                    //                           "Camera",
+                    //                           style: TextStyle(fontSize: 18),
+                    //                         )
+                    //                       ],
+                    //                     ),
+                    //                     GestureDetector(
+                    //                       child: Column(
+                    //                         children: [
+                    //                           CircleAvatar(
+                    //                             backgroundColor: MyTheme.myBlueDark,
+                    //                             child: Center(
+                    //                               child: IconButton(
+                    //                                   onPressed: () {
+                    //                                     // controller.Photogallery(
+                    //                                     //     ImageSource
+                    //                                     //         .gallery);
+                    //                                     // Get.back();
+                    //                                     // print(controller.pickedfile.value);
+                    //                                   },
+                    //                                   icon: Icon(
+                    //                                     Icons.image,
+                    //                                     color: Colors.white,
+                    //                                     size: 25,
+                    //                                   )),
+                    //                             ),
+                    //                           ),
+                    //                           SizedBox(
+                    //                               height: Get.height * 0.01),
+                    //                           Text(
+                    //                             "Gallery",
+                    //                             style: TextStyle(fontSize: 18),
+                    //                           )
+                    //                         ],
+                    //                       ),
+                    //                     ),
+                    //                   ],
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       );
+                    //     },
+                    //     child: CircleAvatar(
+                    //       backgroundColor: Colors.white,
+                    //       radius: 20.0,
+                    //       child: Icon(
+                    //         Icons.camera_alt,
+                    //         size: 30.0,
+                    //         color: MyTheme.myBlueDark,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     radius: 55.0,
                     // backgroundImage: Image.file(
                     //   controller.pickedfile.value!,
@@ -423,10 +428,19 @@ void ExitAlert(BuildContext context) {
                     // child: Text("Continue with google"),
                   ),
                   ElevatedButton(
-                      onPressed: () {
-                            //ApiPaths.logout;
-                            LocalStore.clearData();
-                            Get.offNamed(Routes.login);
+                      onPressed: () async {
+                        // Call the logout API using the LogoutServices class
+                        ApiResp response = await LogoutServices.fetchLogout();
+                        if (response.ok) {
+                          // Successful logout
+                          LocalStore.clearData();
+                          Get.offNamed(Routes.login);
+                        } else {
+                          // Handle error cases
+                          response.msgs.forEach((msg) {
+                            showMsg(msg.msg, msg.title);
+                          });
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: MyTheme.myBlueDark,

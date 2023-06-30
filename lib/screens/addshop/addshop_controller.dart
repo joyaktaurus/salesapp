@@ -13,6 +13,7 @@ import '../../utils/my_utils.dart';
 class AddShopController extends GetxController {
 
   RxList additionalFields = [].obs;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final TextEditingController shopnameCtrl = TextEditingController(text: '');
   final TextEditingController cusnameCtrl = TextEditingController(text: '');

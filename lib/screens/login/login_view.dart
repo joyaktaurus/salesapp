@@ -67,16 +67,27 @@ class LoginView extends GetView<LoginViewController> {
                               TextFormField(
                                 controller: controller.userCtrl,
                                 focusNode: controller.userCtrlfocusNode,
-                                decoration: textBoxDecoration('User Name'),
+                                decoration: textBoxDecorationn('User Name'),
                                 textInputAction: TextInputAction.next,
                               ),
                               SizedBox(height: Get.height * .04),
-                              TextFormField(
+                              Obx(() => TextFormField(
+                                obscureText: !controller.showPassword.value,
                                 controller: controller.pswdCtrl,
                                 focusNode: controller.pswdCtrlfocusNode,
-                                decoration: textBoxDecoration('Password'),
+                                decoration: textBoxDecoration(
+                                  'Password',
+                                  IconButton(
+                                    onPressed: () {
+                                      controller.togglePasswordVisibility();
+                                    },
+                                    icon: Icon(controller.showPassword.value
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                  ),
+                                ),
                                 textInputAction: TextInputAction.next,
-                              ),
+                              )),
                               SizedBox(height: Get.height * .03),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -104,20 +115,20 @@ class LoginView extends GetView<LoginViewController> {
                                 () => controller.isLoggingProgress.value == true
                                     ? const RoundedLoader()
                                     : MAButton(
-                                      text: 'Sign In',
-                                      buttonPress: () {
-                                        //Get.toNamed(Routes.dashBoardPage);
-                                        MyUtils.hideKeyboard();
-                                        errM(() => controller.doLogin());
-                                      },
-                                      isEnabled: true,
-                                      padding: const EdgeInsets.all(30),
-                                      height: Get.height * 0.07,
-                                      width: Get.width * 0.4,
-                                      clipBehavior: 0,
-                                      radius: 30,
-                                      fontSize: 20,
-                                    )),
+                                        text: 'Sign In',
+                                        buttonPress: () {
+                                          //Get.toNamed(Routes.dashBoardPage);
+                                          MyUtils.hideKeyboard();
+                                          errM(() => controller.doLogin());
+                                        },
+                                        isEnabled: true,
+                                        padding: const EdgeInsets.all(30),
+                                        height: Get.height * 0.07,
+                                        width: Get.width * 0.4,
+                                        clipBehavior: 0,
+                                        radius: 30,
+                                        fontSize: 20,
+                                      )),
                           ),
                         ),
                       ]),
@@ -129,7 +140,19 @@ class LoginView extends GetView<LoginViewController> {
   }
 }
 
-InputDecoration textBoxDecoration(hintText) {
+InputDecoration textBoxDecoration(hintText, suffixicon) {
+  return InputDecoration(
+    suffixIcon: suffixicon,
+    suffixIconColor: MyTheme.myBlueDark,
+    hintText: hintText,
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey),
+    ),
+    hintStyle: MyTheme.regularTextStyle(fontSize: 18, color: Colors.black),
+  );
+}
+
+InputDecoration textBoxDecorationn(hintText) {
   return InputDecoration(
     hintText: hintText,
     enabledBorder: UnderlineInputBorder(

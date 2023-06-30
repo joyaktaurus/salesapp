@@ -2,6 +2,7 @@ import 'package:get_storage/get_storage.dart';
 import '../app.dart';
 import '../models/login_resp.dart';
 
+
 abstract class LocalStore {
   static void setData(String key, dynamic value) =>
       GetStorage().write(key, value);
@@ -17,6 +18,9 @@ abstract class LocalStore {
   static dynamic getData(String key) => GetStorage().read(key);
 
   static void clearData() async => GetStorage().erase();
+
+  static void setString(String key, String value) =>
+      GetStorage().write(key, value);
 }
 
 class FetchDataFromLocalStore {
@@ -29,6 +33,7 @@ class FetchDataFromLocalStore {
       dob: LocalStore.getString('dob'),
       phone: LocalStore.getString('phone'),
       email: LocalStore.getString('email'),
+      profilePic: LocalStore.getString('profilePic'),
     );
     App.token = LocalStore.getString('token') ?? '';
   }
