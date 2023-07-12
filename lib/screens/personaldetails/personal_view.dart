@@ -13,6 +13,7 @@ import '../../models/login_resp.dart';
 import '../../my_theme.dart';
 import '../../routes.dart';
 import '../../utils/asset_helper.dart';
+import '../../utils/err_m.dart';
 import '../../utils/my_utils.dart';
 
 class PersonalView extends GetView<PersonalController> {
@@ -73,7 +74,8 @@ class PersonalView extends GetView<PersonalController> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10),
+                              padding: EdgeInsets.only(
+                                  left: 10.0, right: 10.0, top: 10),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -82,10 +84,9 @@ class PersonalView extends GetView<PersonalController> {
                                     Text(
                                       "Employee ID : ",
                                       style: MyTheme.regularTextStyle(
-                                        color: Colors.black,
-                                        fontSize: Get.height * .016,
-                                        fontWeight: FontWeight.w600
-                                      ),
+                                          color: Colors.black,
+                                          fontSize: Get.height * .016,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     Text(
                                       "${App.user.id}",
@@ -111,8 +112,9 @@ class PersonalView extends GetView<PersonalController> {
                             ProfileRows("Name : ", "${App.user.name}"),
                             ProfileRows("Gender : ", "${App.user.gender}"),
                             ProfileRows("Date of Birth : ", "${App.user.dob}"),
-                            ProfileRows("Mobile Number : ", "${App.user.phone}"),
-                            ProfileRows("Email : ", "${App.user.email}"),
+                            ProfilePhone(
+                                "Mobile Number : ", "${App.user.phone}"),
+                            ProfileEmail("Email : ", "${App.user.email}"),
                           ],
                         ),
                       ),
@@ -120,7 +122,8 @@ class PersonalView extends GetView<PersonalController> {
                     SizedBox(height: Get.height * .026),
                     AppBoxes(
                       child: Padding(
-                        padding: EdgeInsets.only(top: 15.0, bottom: 10.0, left: 15),
+                        padding:
+                            EdgeInsets.only(top: 15.0, bottom: 10.0, left: 15),
                         child: Column(
                           children: [
                             Text(
@@ -142,7 +145,8 @@ class PersonalView extends GetView<PersonalController> {
                     SizedBox(height: Get.height * .026),
                     AppBoxes(
                       child: Padding(
-                        padding: EdgeInsets.only(top: 15.0, bottom: 5.0, left: 15),
+                        padding:
+                            EdgeInsets.only(top: 15.0, bottom: 5.0, left: 15),
                         child: Column(
                           children: [
                             Text(
@@ -188,7 +192,60 @@ class PersonalView extends GetView<PersonalController> {
       ),
     );
   }
+
+  Padding ProfilePhone(String text, text1) {
+    return Padding(
+      padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+      child: Row(
+        children: [
+          Text(
+            text,
+            style: MyTheme.regularTextStyle(
+                fontSize: Get.height * .016,
+                color: Colors.black,
+                fontWeight: FontWeight.w600),
+          ),
+          Obx(() => Text(
+                controller.isLoading.value
+                    ? 'Updating...'
+                    : App.user.phone ?? '',
+                style: MyTheme.regularTextStyle(
+                    fontSize: Get.height * .016,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400),
+              )),
+        ],
+      ),
+    );
+  }
+
+  Padding ProfileEmail(String text, text1) {
+    return Padding(
+      padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+      child: Row(
+        children: [
+          Text(
+            text,
+            style: MyTheme.regularTextStyle(
+                fontSize: Get.height * .016,
+                color: Colors.black,
+                fontWeight: FontWeight.w600),
+          ),
+          Obx(() => Text(
+                controller.isLoading.value
+                    ? 'Updating...'
+                    : App.user.email ?? '',
+                style: MyTheme.regularTextStyle(
+                    fontSize: Get.height * .016,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400),
+              )),
+        ],
+      ),
+    );
+  }
 }
+
 void MarkCleanAlert(BuildContext context, PersonalController controller) {
   TextEditingController emailController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
@@ -204,67 +261,92 @@ void MarkCleanAlert(BuildContext context, PersonalController controller) {
         ),
         title: Container(
           width: Get.width * 0.9,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: Icon(
-                      Icons.close,
-                      color: MyTheme.myBlueDark,
-                      size: 15,
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        color: MyTheme.myBlueDark,
+                        size: 15,
+                      ),
                     ),
+                  ],
+                ),
+                Text(
+                  "UPDATE INFORMATION",
+                  style: MyTheme.regularTextStyle(
+                    color: MyTheme.myBlueDark,
+                    fontSize: Get.height * 0.02,
+                    fontWeight: FontWeight.w600,
                   ),
-                ],
-              ),
-              Text(
-                "UPDATE INFORMATION",
-                style: MyTheme.regularTextStyle(
-                  color: MyTheme.myBlueDark,
-                  fontSize: Get.height * 0.02,
-                  fontWeight: FontWeight.w600,
                 ),
-              ),
-              SizedBox(height: Get.height * 0.03),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Email',
+                SizedBox(height: Get.height * 0.03),
+                TextFormField(
+                  controller: emailController,
+                  //focusNode: controller.emailCtrlfNode,
+                  decoration: textBoxDecoration('E-mail'),
+                  textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    String pattern =
+                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                    RegExp regex = RegExp(pattern);
+                    if (!regex.hasMatch(value!))
+                      return 'Enter Your Email';
+                    else
+                      return null;
+                  },
                 ),
-                controller: emailController,
-                textInputAction: TextInputAction.next,
-              ),
-              SizedBox(height: Get.height * 0.03),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Mobile Number',
+                SizedBox(height: Get.height * 0.03),
+                TextFormField(
+                  keyboardType: TextInputType.phone,
+                  controller: mobileController,
+                  // focusNode: controller.phonenumCtrlfNode,
+                  decoration: textBoxDecoration('Phone Number'),
+                  textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    String patttern =
+                        r'(^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$)';
+                    RegExp regExp = new RegExp(patttern);
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter mobile number';
+                    } else if (!regExp.hasMatch(value)) {
+                      return 'Please enter mobile number';
+                    }
+                    return null;
+                  },
                 ),
-                controller: mobileController,
-                textInputAction: TextInputAction.next,
-              ),
-              SizedBox(height: Get.height * 0.0039),
-              Obx(() => MAButton(
-                text: 'Update',
-                buttonPress: controller.isLoading.value
-                    ? null
-                    : () {
-                  String newEmail = emailController.text;
-                  String newPhone = mobileController.text;
-                  controller.updateProfile(newEmail, newPhone);
-                  Get.offNamed(Routes.dashBoardPage);
-                },
-                isEnabled: !controller.isLoading.value,
-                padding:  EdgeInsets.all(30),
-                height: Get.height * 0.06,
-                width: Get.width * 0.3,
-                clipBehavior:50,
-                radius: 30,
-                fontSize: 20,
-              )),
-            ],
+                SizedBox(height: Get.height * 0.0039),
+                Obx(() => MAButton(
+                      text: 'Update',
+                      buttonPress: controller.isLoading.value
+                          ? null
+                          : () {
+                              if (controller.formKey.currentState!.validate()) {
+                                String newEmail = emailController.text;
+                                String newPhone = mobileController.text;
+                                errM(() => controller.updateProfile(
+                                    newEmail, newPhone));
+                                Get.offNamed(Routes.personalPage);
+                              }
+                            },
+                      isEnabled: !controller.isLoading.value,
+                      padding: EdgeInsets.all(30),
+                      height: Get.height * 0.06,
+                      width: Get.width * 0.3,
+                      clipBehavior: 50,
+                      radius: 30,
+                      fontSize: 20,
+                    )),
+              ],
+            ),
           ),
         ),
       );

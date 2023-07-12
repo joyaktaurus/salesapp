@@ -16,6 +16,7 @@ class ShopListController extends GetxController {
   final box = GetStorage();
   Rx<int?> completedMarketingIndex = Rx<int?>(null);
   RxList<int> submittedMarketingIndices = RxList<int>([]);
+  final RxInt currentIndex = RxInt(0);
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController CustomersSearchCntrl = TextEditingController(text: '');
@@ -92,13 +93,7 @@ class ShopListController extends GetxController {
     isScreenProgress.value = true;
 
   }
-  // void submitMarketing() {
-  //   isMarketingSelected.value = true;
-  //   isSalesSelected.value = false;
-  //   marketingColor.value = Colors.blue;
-  //   salesColor.value = Colors.grey;
-  //   isMarketingCompleted.value = true;
-  // }
+
   void submitMarketing() {
     isMarketingSelected.value = true;
     isSalesSelected.value = false;

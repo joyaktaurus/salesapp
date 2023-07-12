@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
+import '../../app.dart';
 import '../../presets/api_paths.dart';
 import '../../services/update_services.dart';
 import '../../utils/mydio.dart';
@@ -13,6 +14,7 @@ class PersonalController extends GetxController {
   var phone = ''.obs;
   var isLoading = false.obs;
   RxBool isScreenProgress = false.obs;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Future<void> updateProfile(String newEmail, String newPhone) async {
     try {
       // Make API call to update email and phone number
@@ -28,8 +30,11 @@ class PersonalController extends GetxController {
           'success',
           backgroundColor: Colors.white,
         );
-        email.value = newEmail;
-        phone.value = newPhone;
+        App.user.email = newEmail;
+        App.user.phone = newPhone;
+
+        // Trigger UI update
+        update();
       } else {
         // Show an error message if the API request fails
         // You can display a snackbar or an alert box

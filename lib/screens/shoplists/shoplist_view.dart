@@ -4,9 +4,7 @@ import 'package:salesapp/screens/addorder/addorder_view.dart';
 import 'package:salesapp/screens/customer_detail/detail_view.dart';
 import 'package:salesapp/screens/marketing/marketing_view.dart';
 import 'package:salesapp/screens/shoplists/shoplist_controller.dart';
-
 import '../../components/app_blank_body.dart';
-import '../../components/app_body_view.dart';
 import '../../components/app_boxes.dart';
 import '../../components/app_buttons.dart';
 import '../../components/app_empty.dart';
@@ -18,7 +16,6 @@ import '../../my_theme.dart';
 import '../../routes.dart';
 import '../../utils/asset_helper.dart';
 import '../../utils/my_utils.dart';
-import '../addshop/addshop_view.dart';
 
 class ShopListView extends GetView<ShopListController> {
   const ShopListView({Key? key}) : super(key: key);

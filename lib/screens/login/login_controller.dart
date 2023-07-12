@@ -146,14 +146,15 @@ class LoginViewController extends GetxController {
     } else {
       final ApiResp resp = await LoginServices.fetchUser(username, password);
       if (resp.ok == false) {
-        Get.snackbar("Incorrect credentials", "Please check your username and password",
-            backgroundColor: Colors.white);
+        Get.snackbar(
+          "Incorrect credentials",
+          "Please check your username and password",
+          backgroundColor: Colors.white,
+        );
         isLoggingProgress.value = false;
         return;
       }
       User user = User.fromJson(resp.rdata);
-      // user.name = username;
-      // App.token = user.apiToken ?? '';
       LocalStore.setData('user_id', user.employeeDetails!.userId);
       LocalStore.setData('token', user.employeeDetails!.apiToken);
       LocalStore.setData('name', user.employeeDetails!.name);
@@ -165,19 +166,28 @@ class LoginViewController extends GetxController {
 
       App.user = user.employeeDetails!;
 
-      if (App.token.isEmpty == false) {
-        Get.snackbar("Failed", "Login failed", backgroundColor: Colors.red);
-        isLoggingProgress.value = false;
-        return;
-      }
-
-      if (user.employeeDetails!.name!.isEmpty) {
+      if (user.employeeDetails?.apiToken?.isEmpty == true || user.employeeDetails?.name?.isEmpty == true) {
         Get.snackbar("Failed", "Login failed", backgroundColor: Colors.red);
         isLoggingProgress.value = false;
         return;
       } else {
         Get.offAllNamed(Routes.dashBoardPage);
       }
+      // App.user = user.employeeDetails!;
+      //
+      // if (App.token.isEmpty == false) {
+      //   Get.snackbar("Failed", "Login failed", backgroundColor: Colors.red);
+      //   isLoggingProgress.value = false;
+      //   return;
+      // }
+      //
+      // if (user.employeeDetails!.name!.isEmpty) {
+      //   Get.snackbar("Failed", "Login failed", backgroundColor: Colors.red);
+      //   isLoggingProgress.value = false;
+      //   return;
+      // } else {
+      //   Get.offAllNamed(Routes.dashBoardPage);
+      // }
     }
   }
 
